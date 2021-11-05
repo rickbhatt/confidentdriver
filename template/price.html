@@ -1,0 +1,139 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price</title>
+
+    <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/price.css' %}">
+
+</head>
+<body>
+    
+<div class="price-wrapper">
+
+        <!-- HEADER SECTION -->
+        <div class="price-header">
+            <a href="/"><img class="logo" src="{% static 'images/demo-logo-01.svg' %}" alt="logo"></a> 
+            <div class="price-nav-container">
+                <ul>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="{% url 'register' %}">REGISTER</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- END OF HEADER SECION -->
+        
+        <!-- FOR HEADING AND CARD SECTION -->
+        <div class="price-main-container">
+            <div class="price-heading-container">
+                <p>Our Plans</p>
+            </div>
+
+            <div class="cards-container">
+                <div class="toggle">
+                    <label class="label-styling">Your Car</label>
+                    <div class="toggle-btn">
+                        <input type="checkbox" id="checkbox" class="checkbox" />
+                        <label for="checkbox" class="sub" id="sub">
+                            <div class="circle"></div>
+                        </label>
+                    </div>
+                    <label class="label-styling">Our Car</label>
+                </div>
+
+                <div class="price-cards">
+                    <div class="card shadow">
+                        <ul>
+                            <li class="pack">7 DAYS</li>
+                            <li class="price bottom-bar">
+                                <i class="fas fa-rupee-sign"></i> &nbsp <span id="seven">2000</span>
+                            </li>
+                            <li class="bottom-bar">Suggested for practice</li>
+                            <li><a href="{% url 'register' %}" class="knw-mre-btn">Apply Now</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="card active">
+                            <ul>
+                                <li class="pack">21 DAYS</li>
+                                <li class="price bottom-bar">
+                                    <i class="fas fa-rupee-sign"></i> &nbsp <span id="twentyone">5000</span>
+                                </li>
+                                <li class="bottom-bar">Suggested for Beginners</li>
+                                <li><a href="{% url 'register' %}" class="knw-mre-btn active-btn">Apply Now</a></li>
+                            </ul>
+                    </div>
+
+                <div class="card shadow">
+                    <ul>
+                        <li class="pack">14 DAYS</li>
+                        <li class="price bottom-bar">
+                            <i class="fas fa-rupee-sign"></i> &nbsp <span id="fourteen">3500</span>
+                        </li>
+                        <li class="bottom-bar">Suggested for Intermediates</li>
+                        <li><a href="{% url 'register' %}" class="knw-mre-btn">Apply Now</a></li>
+                    </ul>
+            </div>
+            </div>
+        </div>
+
+        <!-- FOR HEADING AND CARD SECTION -->
+
+        
+
+    </div>
+
+    <!-- EXPLANATION SECTION -->
+
+    <div class="explanation-main-container">
+        <div class="explanation-heading">
+             <p>We have pocket friendly plans for everyone.</p>
+             <p>Whether you are a beginner, intermediate or somebody who is just out of practice and want to get his hands warm on the wheels, we have prices which absolutely suits your needs. We have three plans for you, divided in three sections, that is, 7 days, 14 days and 21 days. You can choose any one of these plans during registation. However, after choosing a plan, while you are learning, if you feel that the number of days in your current plan is not enough for you to learn driving you can upgrade to the next plan anytime. We do not provide the option to downgrade from the plans provided.
+             </p>
+
+             <p>What is "Our Car" and "Your Car"?</p>
+
+             <p>Well as you have noticed, we have different prices for all the three sections, majorly divided into <span class="plan-highlight">"Our Car"</span> and<span class="plan-highlight">"Your Car."</span></p>
+
+             <p><span class="plan-highlight">Your Car-</span> The prices shown under this section are the prices that you will pay when our insturctors will teach you driving with your won car. That is you'll be providing your car to learn drivng.</p>
+
+             <p><span class="plan-highlight">Our Car-</span> The prices shown under this section are the prices that you will pay when our insturctors will teach you driving with our cars. That is we'll be providing our car to teach you driving. We do not have this option available for the time being.</p>
+
+             <p>Below are the details about the three plans.</p>
+
+        </div>
+
+        <div id="7days" class="plans-explanation-7">
+            <p class="plan-title">7 DAYS</p>
+            <p class="plan-explain">In this plan, you will be taught driving for <span class="plan-highlight">7 days</span>. The first day will be a trial day for you. On this day you will be explained what and how you will be taught driving in these seven days. The counting of days shall begin from the next day. All the topics of driving shall be covered during these seven days. You can upgrade from this plan to either<span class="plan-highlight"> 14 days</span> or <span class="plan-highlight">21 days plan.</span></p>
+        </div>
+        
+        <div id="14days" class="plans-explanation-14">
+            <p class="plan-title">14 DAYS</p>
+            <p class="plan-explain">In this plan, you will be taught driving for <span class="plan-highlight">14 days</span>. The first day will be a trial day for you. On this day you will be explained what and how you will be taught driving in these seven days. The counting of days shall begin from the next day. All the topics of driving shall be covered during these fourteen days. You can upgrade from this plan to only<span class="plan-highlight"> 21 days plan.</span></p>
+        </div>
+        
+        <div id="21days" class="plans-explanation-21">
+            <p class="plan-title">21 DAYS</p>
+            <p class="plan-explain">In this plan, you will be taught driving for <span class="plan-highlight">21 days</span>. The first day will be a trial day for you. On this day you will be explained what and how you will be taught driving in these seven days. The counting of days shall begin from the next day. All the topics of driving shall be covered during these twenty one days.</p>
+        </div>
+    </div>
+
+
+    <!-- END OF EXPLANATION SECTION -->
+</div>
+    <!------------------------- SCRIPTS --------------------------------------->
+
+<script type="text/javascript" src="{% static 'js/price.js' %}"></script>
+
+<!------------------------- END SCRIPTS --------------------------------------->
+
+
+</body>
+</html>

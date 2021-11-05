@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+   <div class="index-wrapper">
+       <div class="index-banner">
+        
+            <div class="index-header">
+                <a href="/">
+                    <img src="{% static 'images/demo-logo-01.svg' %}" alt="logo" class="logo">
+                </a>
+
+                <!-- FOR WIDTH LESS THAN 480PX -->
+
+                <div class="index-480px-nav-container">
+
+                    <div class="index-hamburger"><div class="index-bar"></div></div>
+                    
+                    <ul>
+                        <li><a href="#" data-after="HOME">HOME</a></li>
+                        <li><a href="{% url 'register' %}" data-after="REGISTER">REGISTER</a></li>
+                        <li><a href="{% url 'login' %}" data-after="LOGIN">LOGIN</a></li>
+                        <li><a href="#services" data-after="SERVICES">SERVICES</a></li>
+                        <li><a href="#pricing" data-after="PRICING">PRICING</a></li>
+                        <li><a href="#contact" data-after="CONTACT US">CONTACT US</a></li>
+                    </ul>
+
+                </div>
+
+                 <!--END FOR WIDTH LESS THAN 480PX -->
+
+                <!-- FOR WIDTH >1500PX --> 
+               <div class="index-nav-container">
+                  <ul>
+                      <li><a href="#services">SERVICES</a></li>
+                      <li><a href="#pricing">PRICING</a></li>
+                      <li><a href="#contact">CONTACT US</a></li>
+                      <li><a href="{% url 'register' %}">REGISTER</a></li>
+                      <li><a href="{% url 'login' %}">LOGIN</a></li>
+                  </ul>
+               </div>
+                 <!-- END FOR WIDTH >1500PX --> 
+           </div>
+
+           <div class="index-content-main-container">
+               <div class="index-content">
+                   <h1>Driving Instructors At Your Doorstep</h1>
+                   <p>A first of it's kind service in the city, where we provide driving instructors right at your doorstep.</p>
+                   <p>Whether you are a beginner, intermediate or an expert who just wants get his hands warm on the wheels, we've got your back &#128526.</p>
+                   <p>With pocket friendly plans to select from, register with us to get your driving instructor at your doorstep. </p>
+                   
+                   <a href="#services">Scroll to explore &nbsp<i class="fas fa-long-arrow-alt-down"></i></a>
+                   
+               </div>
+               <img src="{% static 'images/car.svg' %}" alt="car" class="car">
+           </div>
+       </div>
+ <!--   SERVICES -->
+       <div class="index-service-container " id="services">
+           <div class="services-content fade-in">
+                <p class="services-title">SERVICES</p>
+                <p class="serices-sub-title">Why walk to a driving school when you can get an instructor right at your doorstep?</p>
+                <p  class="services-para">Yes it is true, we are the first ones to bring you this service in the city, where we provide you driving instructors at your doorstep.<span class="service-highlight"> Our instructors shall pick you up from your home, teach you and drop you back to your home.</span> Our instructors having sufficient experience in this field, will teach you driving with utmost care. Whether you are a beginner, intermediate or having good experience in driving who is just out of practice, our instructors will teach you with same care and precision.</p>
+                <p class="services-para"></p>
+
+                <a href="">REGISTER NOW &nbsp<i class="fas fa-long-arrow-alt-right" id="servicelongrightarrow"></i></a>
+                
+           </div>
+
+           <img src="{% static 'images/steering.svg' %}" alt="steering">
+       </div>
+      
+<!-- END OF SERVICES -->
+
+<!-- PRICING -->
+       
+       <div class="index-pricing-main-container" id="pricing">
+           
+            <div class="seperator-left fade-in"><img src="{% static 'images/seperatorL.svg' %}" alt="left-seperator"></div>
+           
+            <div class="index-pricing-container">
+
+                <div class="pricing-logos"></div>
+                
+            
+                <div class="pricing-content fade-in">
+                    <p class="pricing-title">PRICING</p>
+                    <p class="pricing-sub-title">We have pocket friendly plans for you.</p>
+                    <p class="pricing-para">That's right, we have plans curated especially for you. We have three plans that exactly suits your needs.</p>
+                    <p class="pricing-para">You can choose any one out of <span class="pricing-highlight">three plans</span> available and during the course if you feel that the plan you opted for is not enough for you to learn driving, <span class="pricing-highlight">then you can upgrade to a higher plan too. If you upgrade to a higher plan you will be only charged the amount of the ugraded plan.</span></p>
+
+                    <a href="{% url 'price' %}">KNOW MORE &nbsp<i class="fas fa-long-arrow-alt-right" id="servicelongrightarrow"></i></a>
+            </div>
+
+           </div>
+        
+      <!-- END FOR PRICING -->
+       </div>
+    <!-- CONTACT -->
+        <div class="index-contact-container" id="contact">
+       
+            <div class="contact-form-ques-container fade-in">
+                <p class="contact-question">Want to speak to us?</p>
+                <p class="contact-ans">Drop your details here and we shall contact you back. We typically reply within 12hrs.</p>
+
+                <div class="contact-form-container">
+                    <form action='' method="POST">
+                        {% csrf_token %}
+                    
+                        <div class="index-form-group">
+                            <input type="text" class="index-form-control" id="name" name="name" placeholder="name" style="text-transform:uppercase"required />
+                            <label for="name" class="index-form-label">YOUR NAME</label>
+                        </div>
+
+                        <div class="index-form-group">
+                            <input class="index-form-control" type="email" id="email" name="email"  placeholder="This will be your User ID" style="text-transform:lowercase" required />
+                            <label class="index-form-label" for="email">YOUR EMAIL</label>
+                        </div>
+
+                        
+                        <div class="index-form-group">
+                            <input class="index-form-control" type="tel" id="phone" name="phone" maxlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="phone no"  required />
+                            <label class="index-form-label" for="phone">YOUR PHONE NUMBER</label>
+                        </div>
+                    
+                    
+                        <button class="contact-button" type="submit">SEND &nbsp<i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        
+        </div>
+<!-- END FOR CONTACT -->
+
+<!-- FOOTER -->
+        <div class="footer-main-container">
+            <div class="footer-row">
+                <div class="footer-col">
+                    <img src="{% static 'images/demo-logo-01.svg' %}" alt="logo" class="logo-footer">
+
+                    <p>Driving instructors at your doorstep.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact <div class="underline"><span></span></div></h3>
+                    <a class="write-to-us" href="#contact">Write to us &nbsp<i class="fas fa-paper-plane"></i></a>
+                   
+                    <p class="contact-email">jgstar@gmail.com &nbsp<i class="fas fa-envelope-open-text"></i></p>
+
+                
+                    
+                    <h4>+91-0123456789 &nbsp<i class="fas fa-phone"></i></h4>
+                  
+
+                </div>
+                <div class="footer-col">
+                    <h3>Links <div class="underline"><span></span></div></h3>
+                    <ul>
+                        <li><a class="footer-links" href="#">Home</a></li>
+                        <li><a class="footer-links" href="#services">Services</a></li>
+                        <li><a class="footer-links" href="#pricing">Pricing</a></li>
+                        <li><a class="footer-links" href="#">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Social Media <div class="underline"><span></span></div></h3>
+                    <div class="social-media-icons">
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr>
+                <p class="index-copyright"><i class="far fa-copyright"></i>This website is developed by Ritankar Bhattaharjee, 2021</p>
+        </div>
+
+   </div>
+<!-- END FOR FOOTERs -->
+<!------------------------- SCRIPTS --------------------------------------->
+
+<script type="text/javascript" src="{% static 'js/index-scroll.js' %}"></script>
+
+<!------------------------- END SCRIPTS --------------------------------------->
+</body>
+</html>

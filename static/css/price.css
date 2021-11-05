@@ -1,0 +1,461 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=EB+Garamond&family=Josefin+Sans:ital@1&family=Montserrat:wght@600&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BioRhyme&family=Merriweather&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+.price-wrapper
+{
+    overflow-x: hidden;
+}
+
+
+/********************** HEADER ***********************************/
+
+.price-header
+{
+    min-height: 60px;
+    background-image: radial-gradient(circle, #fffd00, #ffe700, #fed000, #fabb00, #f3a605);
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 20px;
+    box-shadow: 0px 13px 31px -13px rgba(0,0,0,0.89);
+    -webkit-box-shadow: 0px 13px 31px -13px rgba(0,0,0,0.89);
+    -moz-box-shadow: 0px 13px 31px -13px rgba(0,0,0,0.89);
+
+}
+.logo
+
+{
+    width: 400px;
+    height: 100px;
+    /* border: 1px solid white; */
+}
+
+.price-nav-container ul
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.price-nav-container ul li
+{
+    list-style: none;
+    margin-left: 20px;
+
+}
+
+.price-nav-container ul li a
+{
+    text-decoration: none;
+    padding: 8px 25px;
+    /* color: #3C1321; */
+    color: black;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    transition-duration: 300ms;
+}
+
+.price-nav-container ul li a:hover
+{
+    background-color: #fff;
+    border-radius: 35px;
+    box-shadow: 0 12px 20px 0 rgb(0, 0, 0);
+}
+
+.price-main-container
+{
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+
+}
+
+.price-heading-container
+{
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.price-heading-container p:nth-child(1)
+{
+    font-size: 48px;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(59, 59, 59);
+}
+
+
+/********************** END OF HEADER ****************************/
+
+/******************** CARDS SECTION *******************************/
+
+
+.cards-container
+{
+    /* border: 1px solid orange; */
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+    /* overflow-x: hidden; */
+
+}
+
+.price-cards
+{
+    /* border: 1px solid green; */
+    margin-top: 50px;
+}
+
+.label-styling
+{
+    color: hsl(233, 13%, 49%);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+
+
+}
+
+.toggle
+{
+    margin-top: 32px;
+    color: hsl(234, 14%, 74%);
+    display: flex;
+    align-items: center;
+}
+
+.toggle-btn
+{
+    margin: 0 16px;
+}
+
+.checkbox
+{
+    display: none;
+}
+
+.sub
+{
+    background: linear-gradient(135deg, rgba(163, 168, 240, 1) 0%, 
+    rgba(105, 111, 221, 1) 100%);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 25.6px;
+    width: 52.8px;
+    border-radius: 25.6px;
+    padding: 4.8px;
+    cursor: pointer;
+}
+
+.circle
+{
+    background-color: #fff;
+    width: 22.4px;
+    height: 22.4px;
+    border-radius: 50%;
+}
+
+.checkbox:checked + .sub
+{
+    justify-content: flex-end;
+}
+
+.price-cards
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card
+{
+    background:#f7f7ff;
+    font-family: 'Montserrat', sans-serif;
+
+    color: hsl(233, 13%, 49%);
+    border-radius: 12.8px;
+}
+
+.price-cards .card.active
+{
+    background: linear-gradient(135deg, rgba(163, 168, 240, 1) 0%, 
+    rgba(105, 111, 221, 1) 100%);
+    
+    color: #fff;
+    display: flex;
+    align-items: center;
+    transform: scale(1.1);
+    z-index: 1;
+
+}
+
+.card.shadow ul, .card.active ul
+{
+    margin: 41.6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card.shadow ul li, .card.active ul li 
+{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 16px 0;
+}
+
+ul li.price
+{
+    font-size: 48px;
+    color: hsl(233, 13%, 33%);
+    padding-bottom: 32px;
+}
+
+.shadow
+{
+    box-shadow: -5px 5px 15px 1px rgba(0,0,0,0.1);
+}
+
+.card.active .price
+{
+    color: #fff;
+}
+
+.knw-mre-btn
+{
+    margin-top: 16px;
+    height: 41.6px;
+    width: 212.8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background: linear-gradient(135deg, rgba(163, 168, 240, 1) 0%, 
+    rgba(105, 111, 221, 1) 100%);
+    color:#fff;
+    outline: none;
+    border: 0;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+
+
+}
+
+.active-btn
+{
+    background: #fff;
+    color: hsl(237, 63%, 64%);
+}
+
+.bottom-bar
+{
+    border-bottom: 2px solid hsl(240, 8%, 84%, 0.583);
+    font-family: 'Montserrat', sans-serif;
+
+
+
+}
+
+.card.active .bottom-bar
+{
+    border-bottom: 2px solid hsl(240, 8%, 84%, 0.253);
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.pack
+{
+    font-size: 38px;
+}
+/******************** END FOR CARD SECTION ***********************/
+
+
+/***************** BELOW CARD SECTION ***************************/
+
+.explanation-main-container
+{
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    padding:0px 40px;
+}
+
+.explanation-heading
+{
+    /* border: 1px solid blue; */
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    
+}
+
+.explanation-heading p:nth-child(1)
+{
+    font-size: 48px;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(59, 59, 59);
+}
+
+.explanation-heading p:nth-child(3)
+{
+    margin-top: 30px;
+    font-size: 48px;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(59, 59, 59);
+}
+
+.explanation-heading p:nth-child(2),
+.explanation-heading p:nth-child(4),
+.explanation-heading p:nth-child(5),
+.explanation-heading p:nth-child(6),
+.explanation-heading p:nth-child(7)
+
+
+
+{
+    margin-top: 25px;
+    font-size: 18px;
+    font-family: 'Merriweather', serif;
+    color: #000;
+    line-height: 35px;
+
+}
+
+.plans-explanation-7,.plans-explanation-14,.plans-explanation-21
+{
+    display: flex;
+    flex-direction: column;
+    /* border: 2px solid orange; */
+}
+
+.plan-title
+{
+    font-size: 48px;
+    font-family: 'Montserrat', sans-serif;
+    color: crimson; 
+    margin-bottom: 15px;
+}
+
+.plan-explain
+{
+    font-size: 18px;
+    font-family: 'Merriweather', serif;
+    margin-bottom: 30px;
+
+}
+
+.plan-highlight
+{
+    font-size: 22px;
+    color: crimson;
+}
+
+/******************** END OF BELOW CARD SECTION *****************/
+
+
+
+/************** FOR 769-1100 *****************************/
+
+@media (min-width:1101px) and (max-width: 1299px)
+{
+    .logo{
+        width: 400px;
+        height: 100px;
+    }
+    
+    .price-nav-container ul li a{
+    
+        font-size: 18px;
+        padding: 8px 25px;
+        margin-left: 20px;
+    
+    
+    }
+}
+
+/************** END FOR 769-1100 *****************************/
+
+/********************** FOR TAB ***************************/
+
+
+@media (min-width: 481px) and (max-width: 768px)
+{
+    
+    .logo{
+        width: 170px;
+        height: 42.5px;
+    }
+
+    .price-nav-container ul li a{
+
+        font-size: 18px;
+        padding: 8px 15px;
+    
+    
+    }
+}
+
+
+/******************* END FOR TABS ********************/
+
+/*********** FOR PHONE *******************************/
+
+@media (max-width: 480px)
+{
+    .logo{
+        width: 150px;
+        height: 37.5px;
+    }
+
+    .price-nav-container ul li
+{
+    list-style: none;
+    margin-left: unset;
+
+}
+
+.price-nav-container ul li a{
+
+    font-size: 15px;
+    padding: 8px 15px;
+
+
+}
+
+.price-heading-container{
+    text-align: justify;
+}
+
+.price-heading-container p:nth-child(1){
+    text-align: justify;
+}
+
+.explanation-heading p:nth-child(2){
+
+    text-align: justify;
+}
+
+.plan-explain{
+
+    text-align: justify;
+  
+}
+}
+
+/************** END FOR PHONE *************************/
