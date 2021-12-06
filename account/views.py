@@ -90,7 +90,7 @@ def registerpage(request):
                 return redirect('register')
             
             elif plan is None:
-                messages.info(request, 'Password and Confirm Password not matching')
+                messages.info(request, 'Please select a plan')
                 return redirect('register') 
             else:
                 user=CustomUser.objects.create_user(full_name=full_name.upper(),age=age, phone_no=phone_no, address=address, plan=plan, email=email.lower(), password=password1)
