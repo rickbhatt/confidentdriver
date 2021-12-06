@@ -107,6 +107,9 @@ def registerpage(request):
 
                 return render(request, 'register.html', {'otp': True, 'user': user})
                 # return redirect('login')
+        else:
+            messages.info(request, 'Password and Confirm Password not matching')
+            return redirect('register') 
     else:
         return render(request, 'register.html')
 
