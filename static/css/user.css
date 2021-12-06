@@ -423,6 +423,19 @@ h3 {
     font-size: 0.9rem;
   }
 
+  .testimonial .name
+  {
+    font-size: 1.5rem;
+  }
+
+  .testimonial .user-name{
+    font-size: 0.99rem;
+  }
+
+  .testimonial > p{
+    font-size: 0.89rem;
+  }
+
   .testimonial-grid {
     
     grid-template-areas: 

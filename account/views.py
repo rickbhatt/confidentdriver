@@ -62,7 +62,7 @@ def registerpage(request):
                     'New regsitration contact customer',                                   #subject
                     template,                                                      # body
                     settings.EMAIL_HOST_USER,
-                    ['rick.bhardwaj27@gmail.com'],                                       # sender email
+                    ['confidentdriver.owner@gmail.com'],                                       # sender email
                 )
                 email.fail_silently = False
                 email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
