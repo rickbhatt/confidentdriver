@@ -86,8 +86,12 @@ def registerpage(request):
 
         if password1==password2:
             if CustomUser.objects.filter(email=email).exists():
-                messages.info(request, 'UserID already exists')
+                messages.info(request, 'User with same email already exists')
                 return redirect('register')
+            
+            elif plan is None:
+                messages.info(request, 'Password and Confirm Password not matching')
+                return redirect('register') 
             else:
                 user=CustomUser.objects.create_user(full_name=full_name.upper(),age=age, phone_no=phone_no, address=address, plan=plan, email=email.lower(), password=password1)
                 user.is_active = False
