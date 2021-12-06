@@ -89,7 +89,7 @@ def registerpage(request):
                 messages.info(request, 'User with same email already exists')
                 return redirect('register')
             
-            elif plan is None:
+            elif not plan:
                 messages.info(request, 'Please select a plan')
                 return redirect('register') 
             else:
