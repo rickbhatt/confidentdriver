@@ -1,0 +1,139 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confident Driver | Upgrade</title>
+
+    <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/upgrade.css' %}">
+
+    <link rel="icon"href="{% static 'images/favicon.svg' %}">
+
+</head>
+<body>
+
+<div class="upgrade-wrapper">
+    
+    <div class="upgrade-header">
+        <img src="{% static 'images/confidentdriverheader400.svg' %}" alt="" class="logo">
+        
+        <div class="logout-btn">
+            <a href="{% url 'logout' %}">LOGOUT</a>
+        </div>
+    </div>
+
+    <div class="upgrade-main-container">
+        
+        <div class="upgrade-form-container">
+            <div class="prev-plan-details">
+                <p class="prev-plan">Your Current Plan : {{request.user.plan}}</p>
+            </div>
+            
+            {% if request.user.contract.contract_status %}
+            
+                {% if request.user.plan == '7days' %}
+            
+                    <div class="prev-plan-details">
+                    
+                        <p class="prev-plan">According to your plan you have two upgrade options available but only one upgrade will be allowed.</p>
+                        <p class="prev-plan">Once an upgrade has been done no more upgrades will be allowed for this section.</p>
+                    
+                    </div>
+
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="plans">
+                                    
+                            <input type="radio" name="plan" id="fourteen" value="14days" required>
+                            <input type="radio" name="plan" id="twentyone" value="21days" required>
+                            
+                            <label for="fourteen" class="fourteen">
+                                <div class="dot"></div>
+                                <div class="opt-text">14 Days</div>
+                                <div class="opt-price"> <i class="fas fa-rupee-sign"></i>&nbsp3500</div>
+    
+                            </label>
+    
+                            <label for="twentyone" class="twentyone">
+                                <div class="dot"></div>
+                                <div class="opt-text">21 Days</div>
+                                <div class="opt-price"> <i class="fas fa-rupee-sign"></i>&nbsp5000</div>
+    
+                            </label>
+                        </div>
+
+                        <div class="upgrade-button-container"> 
+                            {% if request.user.upgrade.upgraded_to %}
+                                <input class="upgrade-button" type="submit" value="ALREADY UPGRADED" disabled>
+                            {% else %}
+                                <input class="upgrade-button" type="submit" value="UPGRADE">
+                            {% endif %}
+                        </div>
+                    </form>
+
+
+                {% elif request.user.plan == '14days' and request.user.upgrade.upgraded_to == '14days' %}
+
+                <div class="prev-plan-details">
+                    
+                    <p class="prev-plan">You have already upgraded from 7 days plan, hence there are no more upgrades available for you.</p>
+
+                </div>
+                
+                
+                {% elif request.user.plan == '14days' %}
+                    <div class="prev-plan-details">
+                    
+                        <p class="prev-plan">According to your plan you have only one upgrade option available.</p>
+
+                    </div>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="plans">
+
+                            <input type="radio" name="plan" id="twentyone" value="21days" required>
+    
+                            <label for="twentyone" class="twentyone">
+                                <div class="dot"></div>
+                                <div class="opt-text">21 Days</div>
+                                <div class="opt-price"> <i class="fas fa-rupee-sign"></i>&nbsp5000</div>
+    
+                            </label>
+                        </div>
+                        <div class="upgrade-button-container"> 
+                            {% if request.user.upgrade.upgraded_to %}
+                                <input class="upgrade-button" type="submit" value="ALREADY UPGRADED" disabled>
+                            {% else %}
+                                <input class="upgrade-button" type="submit" value="UPGRADE">
+                            {% endif %}
+                           
+                        </div>
+                       
+                    </form>
+                
+                {% else %}
+                    <p class="prev-plan twenty-one-utility"> According to your plan you have no upgrades available.</p>
+                {% endif %}
+
+            {% else %}
+                <div class="prev-plan-details">
+                    <p class="prev-plan">Please accept the agreement first.</p>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    
+</body>
+</html>

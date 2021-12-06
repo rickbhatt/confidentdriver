@@ -284,12 +284,10 @@
         opacity: 0;
         transform: scale3d(.75,.75.1);
     }
-
     70%{
         opacity: 0;
         transform: scale3d(.75,.75,1);
     }
-
     100%{
         opacity: 1;
         transform: scale3d(1,1,1);
@@ -645,6 +643,7 @@
     box-shadow: none;
     outline: none;
     border-color: orange;
+
 }
 
 .index-form-control:focus + .index-form-label,
@@ -656,6 +655,7 @@
 .index-form-group:focus-within
 {
     transform: scale(1.01,1.01);
+    
 }
 
 .contact-button
@@ -729,6 +729,7 @@
 .footer-col h4
 {
     font-size: 16px;
+    margin-top: 20px;
 
 }
 
@@ -930,10 +931,7 @@ hr{
     }
 
     /* .services-content{
-
         border: 2px solid blue;
-
-
     } */
 
     .index-service-container img{
@@ -964,7 +962,6 @@ hr{
     }
 
     /* .index-pricing-container{
-
         border: 1px solid blue;
     } */
 
@@ -975,7 +972,6 @@ hr{
     }
 /* 
     .pricing-content{
-
         border:1px solid red;
     } */
 
@@ -1030,6 +1026,11 @@ hr{
 
     }
 
+    .footer-col{
+
+        flex-basis: 25%;
+        
+    }
     
 
 
@@ -1387,6 +1388,12 @@ hr{
 
     }
 
+    .footer-col{
+
+        flex-basis: 100% !important;
+        
+    }
+
     
  
 
@@ -1741,18 +1748,15 @@ hr{
     }
 
     /* .footer-main-container{
-
         padding: 50px 0 15px;
     } */
 
     /* .logo-footer{
-
         width: 100px;
         height: 25px;
     } */
 
     /* .footer-row{
-
         width: 100%;
         align-items: center;
     } */
@@ -1767,32 +1771,21 @@ hr{
         
         margin-bottom: 30px;
         font-size: 16px;
-
     }
-
     .footer-col h4
     {
         font-size: 13px;
-
     }
-
     .contact-email{
-
         font-size: 13px;
     }
-
     .write-to-us{
-
         font-size: 13px;
     }
-
     .footer-col ul li a{
-
         font-size: 13px;
     } */
 
 }
 
 /******************** END FOR PHONE *********************/
-
-

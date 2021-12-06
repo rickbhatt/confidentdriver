@@ -6,11 +6,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGISTER</title>
+    <title>Confident Driver | REGISTER</title>
 
     
     <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
+
+    <link rel="icon"href="{% static 'images/favicon.svg' %}">
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/regd_ajax.js' %}"></script>
+
 
 
 </head>
@@ -18,17 +24,51 @@
 
 <!--------------------------------------  OTP SECTION  ------------------------------------------------------------------------->
 
+{% if otp %}
+<div class="register-wrapper">
 
+    <div class="register-header">
+        <a href="/"><img class="logo" src="{% static 'images/confidentdriverheader400.svg' %}" alt="logo"></a>
+    </div>
+    
+    <div class="register-main-container">
+            {% if messages %}
+                <div class="register-message-container">
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+                </div>
+            {% endif %}
+
+        <div class="register-otp-form-container">
+            <h3>OTP VERIFICATION</h3>
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="register-form-group">
+                    <input type="text" class="register-form-control" id="otp" name="otp" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="OTP" required>
+                    <label for="otp" class="register-form-label">OTP</label>
+                    <input type="hidden" name="user" value="{{user.email}}">
+                </div>
+                <input class="register-buttons" type="submit" value="Submit OTP" required>
+                <p>An Otp has been sent to your registered email id.</p>
+                
+            </form>
+            
+            <a class="resend-otp" href="#" onclick="ReSendOTP('{{user.email}}', 'resendOTPmess')"><span id="resendOTPmess">Resend</span> OTP?</a>
+        </div>
+    </div>
+</div>
 
 
 <!-------------------------------------- END OF OTP SECTION  ------------------------------------------------------------------------->
 
-
+{% else %}
 <!--------------------- REGISTER FORM ------------------------------->
 
 <div class="register-wrapper">
     <div class="register-header">
-        <a href="/"><img class="logo" src="{% static 'images/demo-logo-01.svg' %}" alt="logo"></a>
+        <a href="/"><img class="logo" src="{% static 'images/confidentdriverheader400.svg' %}" alt="logo"></a>
     </div>
 
     <div class="register-main-container">
@@ -41,78 +81,139 @@
         {% endif %}
 
         <div class="register-form-container">
-            
-            <form method="POST" >
-                <p>PERSONAL DETAILS</p>
+           
+
+            <form id="regForm" method="POST">
+
                 {% csrf_token %}
 
-                <div class="register-form-group">
-                    <input class="register-form-control" type="text" id="first_name" name="first_name" maxlength="255" style="text-transform:uppercase" placeholder="name" required />
-                    <label class="register-form-label" for="first_name">NAME</label>
-                </div>
 
-                <div class="register-form-group">
-                    <input class="register-form-control" type="email" id="email" name="email"  placeholder="This will be your User ID" style="text-transform:lowercase" required />
-                    <label class="register-form-label" for="email">EMAIL (This will be your UserID)</label>
-                </div>
+                <h3>REGISTRATION</h3>
 
-                <div class="register-form-group">
-                    <input class="register-form-control" type="tel" id="phone" name="phone" maxlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="phone no"  required />
-                    <label class="register-form-label" for="phone">YOUR PHONE NUMBER</label>
-                </div>
+                <!-- One tab for each step form -->
+                <!-- persoonal details -->
+                <div class="register-tab">
+                    
+                    <p>Personal Details:</p>
 
-                <div class="register-form-group">
-                    <input class="register-form-control" type="text" id="address" name="address" maxlength="255" style="text-transform:uppercase" placeholder="address" required />
-                    <label class="register-form-label" for="address">ADDRESS(Your pick-up and droping location)</label>
-                </div>
+                    <div class="register-form-group">
+                        <input class="register-form-control" type="text"  id="full_name" name="full_name" maxlength="255" style="text-transform:uppercase" placeholder="name" required />
+                        <label class="register-form-label" for="full_name">NAME</label>
+                    </div>
 
-                <div class="button-container">
-                  
-                    <button class="nav-btn">Next &nbsp<i class="fas fa-caret-right"></i></button>
+                    <div class="register-form-group">
+                        <input class="register-form-control" type="tel" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="age" name="age" maxlength="2" pattern="[0-9]{10}"  placeholder="age"  required />
+                        <label class="register-form-label" for="age">YOUR AGE</label>
+                    </div>
+
+                    <div class="register-form-group">
+                        <input class="register-form-control" type="tel" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="phone" name="phone" maxlength="10" pattern="[0-9]{10}"  placeholder="phone no"  required />
+                        <label class="register-form-label" for="phone">YOUR PHONE NUMBER</label>
+                    </div>
+
+                    
+                    <div class="register-form-group">
+                        <input class="register-form-control" type="text" id="address"  name="address" maxlength="500" style="text-transform:uppercase" placeholder="address" required />
+                        <label class="register-form-label" for="address">FULL ADDRESS</label>
+                    </div>
+                    
                 </div>
-              
+                <!-- end for personal details -->
+
+                <!-- plans -->
+
+                <div class="register-tab">
+
+                    <p>Plans</p>
+
+                    <div class="plans">
+                                    
+                        <input type="radio" name="plan" id="seven" value="7days">
+                        <input type="radio" name="plan" id="fourteen" value="14days">
+                        <input type="radio" name="plan" id="twentyone" value="21days">
+                        
+                        <label for="seven" class="seven">
+                            <div class="dot"></div>
+                            <div class="opt-text">7 Days</div>
+                            <div class="opt-price"> <i class="fas fa-rupee-sign"></i>&nbsp2000</div>
+
+                        </label>
+
+                        <label for="fourteen" class="fourteen">
+                            <div class="dot"></div>
+                            <div class="opt-text">14 Days</div>
+                            <div class="opt-price"> <i class="fas fa-rupee-sign"></i>&nbsp3500</div>
+
+                        </label>
+
+                        <label for="twentyone" class="twentyone">
+                            <div class="dot"></div>
+                            <div class="opt-text">21 Days</div>
+                            <div class="opt-price"> <i class="fas fa-rupee-sign"></i>&nbsp5000</div>
+
+                        </label>
+                    </div>
+                </div>
+                <!-- end for plans -->
+
+                <!-- login info -->
+
+                <div class="register-tab">
+
+                    <p>Login Information</p>
+
+                    <div class="register-form-group">
+                        <input class="register-form-control" type="email" id="email"  name="email"  placeholder="This will be your User ID" style="text-transform:lowercase" required />
+                        <label class="register-form-label" for="email">YOUR EMAIL</label>
+                    </div>
+
+                    <div class="register-form-group">
+                        <input class="register-form-control" type="password" id="password"  name="password" maxlength="10" placeholder="max 10 characters" required />
+                        <label class="register-form-label" for="password">PASSWORD (max 10 characters)</label>
+                    </div>
+
+                    <div class="register-form-group">
+                        <input class="register-form-control" type="password" id="con_password"  name="con_password" maxlength="10" placeholder="confirm_password" required />
+                    <label class="register-form-label" for="con_password">CONFIRM PASSWORD</label>
+                    </div>
+
+                </div>
+                <!-- end for login info -->
+
+                <!-- button container -->
+
+                <div id="buttoncontainer" class="button-container">
+                    <button class="register-buttons" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button class="register-buttons" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+                <!-- end for button container -->
+
+                <!-- indicators -->
+                    <div class="indicator-container">
+                        <span class="step"></span>
+                        <span class="step"></span>
+                        <span class="step"></span>
+                        <span class="step"></span>
+                    </div>
+                <!-- end for indicators -->
             </form>
+                <p>* By registering you are agreeing to the terms and conditions.</p>
+                <a href="">Terms & Conditions</a>
+            </div>
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
+{% endif %}
 
 
 
 <!--------------------- END FOR REGISTER FORM ------------------------------->
 
 
+<!--------------------- SCIRPTS ------------------------------->
 
+<script type="text/javascript" src="{% static 'js/register.js' %}"></script>
+
+<!--------------------- SCIRPTS------------------------------->
 </body>
 </html>

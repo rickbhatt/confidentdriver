@@ -54,8 +54,21 @@
     
 }
 
-.register-form-container p:nth-child(1),
-.register-otp-form-container h3
+.register-otp-form-container
+{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  border-radius: 25px;
+  width: 30vw;
+  min-height: 300px;
+  padding: 20px 25px;
+  box-shadow: 2px 6px 15px #d5d5d5,  -4px -5px 15px #d5d5d5;
+
+  justify-content:space-between; 
+}
+
+.form-title
 {
     color: #0a193d;
     font-weight: bolder;
@@ -64,7 +77,47 @@
     margin-bottom: 30px;
 }
 
+.register-otp-form-container a
+{
+    text-decoration: none;
+    color: #0a193d;
+    font-size: 14px ;
+    
+}
 
+.register-form-container a
+{
+    text-decoration: none;
+    color: #0a193d;
+    font-size: 14px;
+}
+
+.register-form-container a:hover,
+.register-otp-form-container a:hover
+{
+    transform: scaleX(1.05);
+    color: red;
+    
+}
+
+.register-form-container h3,
+.register-otp-form-container h3
+{
+    color: #0a193d;
+    font-weight: bolder;
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+}
+
+.register-form-container p,
+.register-otp-form-container p
+{
+    color: red;
+    font-weight: bolder;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    
+}
 
 /* FORM ANIMATIONS AND DESIGNS */
 
@@ -95,7 +148,7 @@
     border-radius: 0;
     border-color: #ccc;
     border-style: none none solid none;
-    width: 100%; 
+    width: 80%; 
     transition: all .5s;
     padding: 5px;
     background-color: transparent;
@@ -125,27 +178,305 @@
     transform: scale(1.01,1.01);
 }
 
+.register-message-container
+{
+    background-color: orange;
+
+    border-radius: 25px;
+    padding: 8px 25px;
+    text-align: center;
+    margin-bottom:50px;
+}
+
+.register-message-container p
+{
+    color: white;
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
+}
 
 
 /* END FOR FORM ANIMATIONS AND DESIGNS */
 
+/* this is for form validation */
+.register-form-control.invalid {
+    
+    border-color: #ff0000;
+}
+
+/* Hide all steps by default: */
+
+.register-tab {
+    display: none;
+}
+
+.register-tab p
+{
+    color: #0a193d;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+  
+/* buttons */
+
+.register-buttons
+{
+  background-color: #0166fd;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  padding: 10px 25px;
+  font-size: 17px;
+  font-family: 'Raleway', sans-serif;
+  cursor: pointer;
+}
+
+.register-buttons:hover
+{
+    opacity: 0.8;
+}
+
+#prevBtn 
+{
+    background-color: #5f5f5f;
+}
+
 .button-container
 {
-    /* border: 1px solid red; */
     display: flex;
     justify-content: space-between;
 }
 
-.nav-btn
+/* end of buttons */
+
+/* indicator container */
+.indicator-container
 {
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    background: linear-gradient(to right, #ff105f, #ffad06);
-    color:#fff;
-    padding: 8px 25px;
+    margin-top: 20px;
     text-align: center;
-    font-size: 16px;
-    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;  
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #04AA6D;
+  }
+
+
+
+/* RADIO BUTTONS */
+
+.plans
+{
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
+.plans label
+{
+    display: flex;
+    height: 53px;
+    width: 80%;
+    align-items: center;
+    border: 1px solid lightgrey;
+    border-radius: 50px;
+    margin: 10px 0;
+    padding: 0px 20px;
     cursor: pointer;
+    transition: all 0.3s ease;
+
+}
+
+
+
+.plans label .opt-price
+{
+    margin-left: auto;
+}
+
+.plans label .opt-price,
+.plans label .opt-text
+{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #0a193d;
+    font-weight: 400;
+    transition: color 0.3s ease;
+
+}
+
+.plans label .opt-text
+{
+    padding-left: 10px;
+}
+
+
+
+.plans label .dot
+{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #d9d9d9;
+    position: relative;
+}
+
+
+.plans label .dot::before
+{
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2);
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    transition: color 0.3s ease;
+
+}
+
+
+#seven:checked ~ .seven .dot::before,
+#fourteen:checked ~ .fourteen .dot::before,
+#twentyone:checked ~ .twentyone .dot::before
+
+{
+    background: #333;
+    transform: translate(-50%, -50%) scale(1);
+
+}
+
+
+#seven:checked ~ .seven,
+#fourteen:checked ~ .fourteen,
+#twentyone:checked ~ .twentyone
+
+{
+    background: #333;
+    border-color: #333;
+}
+
+.plans 
+{
+    margin-bottom: 20px;
+}
+#seven:checked ~ .seven .opt-text ,
+#fourteen:checked ~ .fourteen .opt-text ,
+#twentyone:checked ~ .twentyone .opt-text,
+#seven:checked ~ .seven .opt-price ,
+#fourteen:checked ~ .fourteen .opt-price ,
+#twentyone:checked ~ .twentyone .opt-price  
+
+{
+   color: #fff;
+}
+
+.plans input[type="radio"]
+{
+    display: none;
+}
+
+/* RADIO BUTTONS END */
+
+@media (min-width:781px) and (max-width:1200px)
+{
+    .register-main-container{
+
+        padding: 20px;
+    }
+
+    .register-form-container{
+        min-width: 30vw;
+        justify-self: center;
+    }
+
+    .register-otp-form-container{
+        min-width:30vw;
+        justify-self: center;
+    }
+
+
+    .register-form-label{
+        font-size: 1rem;
+    }
+
+    .register-header{
+        min-height: 60px;
+        padding: 25ppx 20px;
+    }
+
+}
+
+
+
+
+
+@media (max-width:780px)
+{
+    
+    .register-main-container{
+
+        padding: 10px;
+    }
+    
+
+    .register-form-container{
+        min-width: 80%;
+        justify-self: center;
+    }
+
+    .register-otp-form-container{
+        min-width: 80%;
+        justify-self: center;
+    }
+
+    .register-form-label{
+        font-size: 13px;
+    }
+
+    .register-header{
+        min-height: 30px;
+        padding: 10px 12.5px;
+    }
+
+    .logo{
+        
+        width: 200px;
+        height: 50px;
+    }
+
+    .register-form-container h3,
+    .register-otp-form-container h3{
+
+        font-size: 20px;
+    }
+
+    .register-buttons{
+
+        font-size: 13px;
+        
+    }
+
 }

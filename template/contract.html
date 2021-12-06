@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confident Driver | Contract</title>
+
+    <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/contract.css' %}">
+
+    <link rel="icon"href="{% static 'images/favicon.svg' %}">
+
+</head>
+<body>
+    
+
+<div class="contract-wrapper">
+        <div class="contract-header">
+            <img src="{% static 'images/confidentdriverheader400.svg' %}" alt="" class="logo">
+            
+            <div class="logout-btn">
+                <a href="{% url 'logout' %}">LOGOUT</a>
+            </div>
+        </div>
+    
+
+    <div class="contract-main-container">
+        <div class="contract-content-container">
+            <div class="contract-heading">
+                <p class="heading">AGREEMENT</p>
+            </div>
+            
+            <hr class="divider">
+            
+            <div class="contract-disclaimer">
+                <ul>
+                    <p class="note">Note:</p>
+                    
+                    <li class="disclaimer-points">This agreement when accepted will be emailed to the respective user.</li>
+                    <li class="disclaimer-points">The agreement is to be accpeted only in the presence of the instructor after/on the trial day.</li>
+                    <li class="disclaimer-points">Incase the user accpets the agreement on their own in the absence of the instructor, then he/she will have to abide by the agreement under all circumstances.</li>
+                </ul>
+            </div>
+
+            <hr class="divider">
+
+            <div class="contract-agreement">
+                <p class="agreement-contents">
+                    I, <b>{{request.user.full_name}}</b>, with email/ user id, <b>{{request.user.email}}</b> , have choosen the plan of <b>{{request.user.plan}}</b> during registration. I accept this agreement in the presence of my instructor, and agree to comply with the policies of the organisation. I agree to pay the amount {% if request.user.plan == '7days' %} <i class="fas fa-rupee-sign"></i> <b>2000</b> {% endif %} {% if request.user.plan == '14days' %} <i class="fas fa-rupee-sign"></i> <b>3500</b> {% endif %} {% if request.user.plan == '21days' %} <i class="fas fa-rupee-sign"></i> <b>5000</b> {% endif %} that has been fixed for the plan that I have opted for during the registration.
+                </p>
+
+                
+                <div class="user-signature-area">
+                    <p class="agreement-contents"><b>This agreement is valid,</b></p>
+                    <p class="agreement-contents"><b>From : {{request.user.contract.date_of_acceptance}} </b></p>
+                    <p class="agreement-contents"><b>To : {{request.user.contract.date_of_expiration}} </b></p>
+                   
+                </div>
+
+                <div class="user-signature-area">
+                    <p class="agreement-contents"> {{request.user.full_name}}</p>
+                    <p class="agreement-contents"><b>Signature of the user</b></p>
+                </div>
+            </div>
+            <hr class="divider">
+
+            <div class="agree-button-container">
+                
+                <form action="contract" method="post">
+                    {% csrf_token %}
+
+                    {% if request.user.contract.contract_status %}
+                        <button class="agree-button" disabled="disabled">AGREED</button>
+                    {% else %}
+                        
+                        <div class="checkbox-button-container">
+                            <input type="checkbox" id="checkagree" value="checked">
+                            <label for='checkagree'>I have, read the above agreement carefully,</label>
+                            <input class="agree-button" id="iagree" type="submit" value="I AGREE" disabled>
+
+                        </div>
+
+                    {% endif %}
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPTS -->
+
+<script type="text/javascript" src="{% static 'js/contract.js' %}"></script>
+
+
+<!-- END OF SCRIPTS -->
+
+</body>
+</html>

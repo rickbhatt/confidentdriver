@@ -8,6 +8,8 @@
     <title>Home</title>
     <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+    <link rel="icon" href="{% static 'images/favicon.svg' %}">
 </head>
 <body>
    <div class="index-wrapper">
@@ -15,7 +17,7 @@
         
             <div class="index-header">
                 <a href="/">
-                    <img src="{% static 'images/demo-logo-01.svg' %}" alt="logo" class="logo">
+                    <img src="{% static 'images/confidentdriverheader400.svg' %}" alt="logo" class="logo">
                 </a>
 
                 <!-- FOR WIDTH LESS THAN 480PX -->
@@ -71,7 +73,7 @@
                 <p  class="services-para">Yes it is true, we are the first ones to bring you this service in the city, where we provide you driving instructors at your doorstep.<span class="service-highlight"> Our instructors shall pick you up from your home, teach you and drop you back to your home.</span> Our instructors having sufficient experience in this field, will teach you driving with utmost care. Whether you are a beginner, intermediate or having good experience in driving who is just out of practice, our instructors will teach you with same care and precision.</p>
                 <p class="services-para"></p>
 
-                <a href="">REGISTER NOW &nbsp<i class="fas fa-long-arrow-alt-right" id="servicelongrightarrow"></i></a>
+                <a href="{% url 'register' %}">REGISTER NOW &nbsp<i class="fas fa-long-arrow-alt-right" id="servicelongrightarrow"></i></a>
                 
            </div>
 
@@ -107,36 +109,51 @@
     <!-- CONTACT -->
         <div class="index-contact-container" id="contact">
        
-            <div class="contact-form-ques-container fade-in">
-                <p class="contact-question">Want to speak to us?</p>
-                <p class="contact-ans">Drop your details here and we shall contact you back. We typically reply within 12hrs.</p>
-
-                <div class="contact-form-container">
-                    <form action='' method="POST">
-                        {% csrf_token %}
-                    
-                        <div class="index-form-group">
-                            <input type="text" class="index-form-control" id="name" name="name" placeholder="name" style="text-transform:uppercase"required />
-                            <label for="name" class="index-form-label">YOUR NAME</label>
-                        </div>
-
-                        <div class="index-form-group">
-                            <input class="index-form-control" type="email" id="email" name="email"  placeholder="This will be your User ID" style="text-transform:lowercase" required />
-                            <label class="index-form-label" for="email">YOUR EMAIL</label>
-                        </div>
-
-                        
-                        <div class="index-form-group">
-                            <input class="index-form-control" type="tel" id="phone" name="phone" maxlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="phone no"  required />
-                            <label class="index-form-label" for="phone">YOUR PHONE NUMBER</label>
-                        </div>
-                    
-                    
-                        <button class="contact-button" type="submit">SEND &nbsp<i class="fas fa-paper-plane"></i></button>
-                    </form>
+            {% if messages %}
+                <div class="contact-form-ques-container">
+                    {% for message in messages %}
+                        <p class="contact-question">{{message}}</p>
+                    {% endfor %}
                 </div>
-            </div>
-        
+            {% else %}
+            
+                <div class="contact-form-ques-container fade-in">
+                    <p class="contact-question">Want to speak to us?</p>
+                    <p class="contact-ans">Drop your details here and we shall contact you back. We typically reply within 12hrs.</p>
+
+                
+                
+                        <div class="contact-form-container">
+                            <form method="POST">
+                                {% csrf_token %}
+                            
+                                <div class="index-form-group">
+                                    <input type="text" class="index-form-control" id="name" name="name" placeholder="name" style="text-transform:uppercase"required />
+                                    <label for="name" class="index-form-label">YOUR NAME</label>
+                                </div>
+
+                                <div class="index-form-group">
+                                    <input class="index-form-control" type="email" id="email" name="email"  placeholder="This will be your User ID" style="text-transform:lowercase" required />
+                                    <label class="index-form-label" for="email">YOUR EMAIL</label>
+                                </div>
+
+                                
+                                <div class="index-form-group">
+                                    <input class="index-form-control" type="tel" id="phone" name="phone" maxlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="phone no"  required />
+                                    <label class="index-form-label" for="phone">YOUR PHONE NUMBER</label>
+                                </div>
+
+                                <div class="index-form-group">
+                                    <input type="text" class="index-form-control" id="question" name="question" placeholder="question" maxlength="100" required />
+                                    <label for="question" class="index-form-label">YOUR QUERY(max 100 charachters)</label>
+                                </div>
+                            
+                            
+                                <button class="contact-button" type="submit">SEND &nbsp<i class="fas fa-paper-plane"></i></button>
+                            </form>
+                        </div>
+                </div>
+            {% endif %}
         </div>
 <!-- END FOR CONTACT -->
 
@@ -144,7 +161,7 @@
         <div class="footer-main-container">
             <div class="footer-row">
                 <div class="footer-col">
-                    <img src="{% static 'images/demo-logo-01.svg' %}" alt="logo" class="logo-footer">
+                    <img src="{% static 'images/confidentdriverfooter400.svg' %}" alt="logo" class="logo-footer">
 
                     <p>Driving instructors at your doorstep.</p>
                 </div>
@@ -152,7 +169,7 @@
                     <h3>Contact <div class="underline"><span></span></div></h3>
                     <a class="write-to-us" href="#contact">Write to us &nbsp<i class="fas fa-paper-plane"></i></a>
                    
-                    <p class="contact-email">jgstar@gmail.com &nbsp<i class="fas fa-envelope-open-text"></i></p>
+                    <!-- <p class="contact-email">jgstar@gmail.com &nbsp<i class="fas fa-envelope-open-text"></i></p> -->
 
                 
                     

@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confident Driver | Profile</title>
+
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+
+    <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
+    
+    <link rel="icon" href="{% static 'images/favicon.svg' %}">
+
+    
+
+</head>
+<body>
+
+    <div class="user-wrapper">
+        <header class="user-header">
+            <img src="{% static 'images/confidentdriverheader400.svg' %}" alt="" class="logo">
+            
+            <div class="logout-btn">
+                <a href="{% url 'logout' %}">LOGOUT</a>
+            </div>
+
+        </header>
+
+        <nav class="user-nav-container">
+                <ul>
+                    <li><a href="{% url 'upgrade' %}">UPGRADE</a></li>
+                    <li><a href="{% url 'contract' %}">CONTRACT</a></li>
+                </ul>
+        </nav>
+    <div class="content-main-container"> 
+        <main class="testimonial-grid">
+            
+            <article class="testimonial grid-col-span-2 flow bg-primary-400 quote text-neutral-100">
+                    <div class="flex-welcome">
+                      <div>
+                        <h2 class="name">Hello,</h2>
+                      </div>
+                      <div>
+                        <p class="user-name">{{request.user.full_name}}</p>
+                      </div>
+                    </div>
+            </article>
+            <article class="testimonial flow bg-secondary-400 text-neutral-100">
+                <div class="flex">
+                    <div>
+                      <h2 class="name">Personal Details</h2>
+                    </div>
+                  </div>
+                  <p>Email : {{request.user.email}} </p>
+                  <p>Phone Number : {{request.user.phone_no}} </p>
+                  <p>Current Plan : {{request.user.plan}} </p>
+                  <p>Age : {{request.user.age}} </p>
+                  <p>Date of Joining : {{request.user.date_joined}} </p>
+            </article>
+            <article class="testimonial flow bg-neutral-150 text-secondary-400">
+                <div class="flex">
+            
+                    <div>
+                      <h2 class="name">Full Address</h2>
+                      <p class="position">Picking and Dropping locattion.</p>
+                    </div>
+                  </div>
+                  <p>
+                    Address : {{request.user.address}}
+                </p>
+                  
+            </article>
+            <article class="testimonial grid-col-span-2 flow bg-secondary-500 text-neutral-100">
+                <div class="flex">
+                  <div>
+                    <h2 class="name">Contract Status</h2>
+                  </div>
+                </div>
+                <p>
+                    Contract Status : {% if request.user.contract.contract_status %} Accepted {% else %} Not Accepted Yet {% endif %}
+                </p>
+                <p>
+                    Plan Starting Date : {% if request.user.contract.contract_status %} {{request.user.contract.date_of_acceptance}} {% else %} Not Available Yet {% endif %}
+                </p>
+
+                <p>
+                    Plan Expiration Date : {% if request.user.contract.contract_status %} {{request.user.contract.date_of_expiration}} {% else %} Not Available Yet {% endif %}
+                </p>
+              </article>
+              <article class="testimonial flow bg-neutral-100 text-secondary-400">
+                <div class="flex">
+                  <div>
+                    <h2 class="name">Upgradation Details</h2>
+                  </div>
+                </div>
+                <p>
+                  Plan Upgraded From : {% if request.user.upgrade %} {{request.user.upgrade.initial_plan}} {% else %} Not Available Yet {% endif %}
+                </p>
+                <p>
+                    Plan Upgraded To : {% if request.user.upgrade %} {{request.user.upgrade.upgraded_to}} {% else %} Not Available Yet {% endif %}
+                </p>
+
+                <p>
+                    Plan Upgraded To : {% if request.user.upgrade %} {{request.user.upgrade.date_of_upgradation}} {% else %} Not Available Yet {% endif %}
+                </p>
+              </article>
+            
+        </main>
+    </div> 
+    </div>
+</body>
+</html>
