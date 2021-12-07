@@ -75,21 +75,21 @@ def registerpage(request):
                 return render(request, 'register.html', {'otp': True, 'user': user})
 
         
-        full_name = request.POST['full_name']
-        age = request.POST['age']
-        phone_no = request.POST['phone']
-        address = request.POST['address']
-        plan = request.POST['plan']
-        email = request.POST['email']
-        password1= request.POST['password']
-        password2= request.POST['con_password']
+        full_name = request.POST.get('full_name')
+        age = request.POST.get('age')
+        phone_no = request.POST.get('phone')
+        address = request.POST.get('address')
+        plan = request.POST.get('plan')
+        email = request.POST.get('email')
+        password1= request.POST.get('password')
+        password2= request.POST.get('con_password')
 
         if password1==password2:
             if CustomUser.objects.filter(email=email).exists():
                 messages.info(request, 'User with same email already exists')
                 return redirect('register')
             
-            elif not plan:
+            elif plan is None:
                 messages.info(request, 'Please select a plan')
                 return redirect('register') 
             else:
