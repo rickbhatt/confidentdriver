@@ -22,7 +22,7 @@ def dashboard(request):
     contract_expire_today  = Contract.objects.all().filter(date_of_expiration__contains= datetime.today().date()).count()
     
 
-    # print('Contract_signed_today', Contract_signed_today)
+    print('allcontracts', all_contracts)
     
     context = {'all_users': all_users, 'all_users_bydate':all_users_bydate,'contract_signed_today':contract_signed_today,'contract_expire_today': contract_expire_today}
 
