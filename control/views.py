@@ -24,6 +24,6 @@ def dashboard(request):
 
     print('allcontracts', all_contracts)
     
-    context = {'all_users': all_users, 'all_users_bydate':all_users_bydate,'contract_signed_today':contract_signed_today,'contract_expire_today': contract_expire_today}
+    context = {'all_users': all_users, 'all_users_bydate':all_users_bydate,'all_contracts':all_contracts ,'contract_signed_today':contract_signed_today,'contract_expire_today': contract_expire_today}
 
     return render(request, 'control-pannel.html', context)
