@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confident Driver | Control Pannel</title>
+
+    
+    <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="{% static 'css/control-pannel.css' %}">
+
+    <link rel="icon"href="{% static 'images/favicon.svg' %}">
+</head>
+<body>
+    
+<div class="control-wrapper">
+        <div class="control-header">
+            <img src="{% static 'images/confidentdriverheader400.svg' %}" alt="" class="logo">
+            
+            <div class="logout-btn">
+                <a href="{% url 'logout' %}">LOGOUT</a>
+            </div>
+        </div>
+
+
+        <div class="control-nav-container">
+            <ul class="control-nav-ul">
+                
+                <li class="control-nav-list">
+                    <a href="{% static url 'control-pannel' %}" class="control-nav-link">Dashboard <i class="fas fa-chart-line"></i></a>
+                </li>
+                
+                <li class="control-nav-list">
+                    <a href="" class="control-nav-link">All Users <i class="fas fa-users"></i></a>
+                </li>
+
+                <li class="control-nav-list">
+                    <a href="" class="control-nav-link">Contracts <i class="fas fa-file-signature"></i></a>
+                </li>
+
+                <li class="control-nav-list">
+                    <a href="" class="control-nav-link">Upgdrades <i class="fas fa-upload"></i></a>
+                </li>
+
+                <li class="control-nav-list">
+                    <a href="" class="control-nav-link">All Staff <i class="fas fa-user-tie"></i></a>
+                </li>
+                
+                <li class="control-nav-list">
+                    {% if request.user.is_superuser %}
+                        <a href="http://confidentdriver.herokuapp.com/admin/" class="control-nav-link">SETTINGS <i class="fas fa-wrench"></i></a>
+                    {% endif %}
+                </li>
+            
+            </ul>
+        </div>
+
+        <div class="dashboard-contents">
+            <div class="staff-name">
+                <p class="staff-user-name">
+                    Hello, {{request.user.full_name}}
+                </p>
+            </div>
+
+            <div class="analytics-container">
+                <div class="analytics-box">
+                    <div class="analytics-content">
+                        
+                        <div class="blob">
+                            <p class="figures">0</p>
+                        </div>
+                        
+                        <p class="analytics-heading">
+                            Total Visitors
+                        </p>
+                    </div>
+                </div>
+
+                <div class="analytics-box">
+                   <div class="analytics-content">
+                        
+                        <div class="blob">
+                            <p class="figures">{{all_users_bydate}}</p>
+                        </div>
+
+                        <p class="analytics-heading">
+                            Users Joined Today
+                        </p>
+                   </div>
+                </div>
+
+                <div class="analytics-box">
+                    <div class="analytics-content">
+                        
+                        <div class="blob">
+                            <p class="figures">{{all_users}}</p>
+                        </div>
+                        
+                        <p class="analytics-heading">
+                            Total Users
+                        </p>
+                    </div>
+                </div>
+
+                <div class="analytics-box">
+                    <div class="analytics-content">
+                        
+                        <div class="blob">
+                            <p class="figures">{{all_users}}</p>
+                        </div>
+                        
+                        <p class="analytics-heading">
+                            Total Contracts Signed
+                        </p>
+                    </div>
+                </div>
+
+                <div class="analytics-box">
+                    <div class="analytics-content">
+                        
+                        <div class="blob">
+                            <p class="figures">{{contract_signed_today}}</p>
+                        </div>
+                        
+                        <p class="analytics-heading">
+                            Contracts Signed Today
+                        </p>
+                    </div>
+                </div>
+
+                <div class="analytics-box">
+                    <div class="analytics-content">
+                        
+                        <div class="blob">
+                            <p class="figures">{{contract_expire_today}}</p>
+                        </div>
+                        
+                        <p class="analytics-heading">
+                            Contracts Expiring Today
+                        </p>
+                    </div>
+                </div>
+            </div>            
+        
+        </div>
+</div>
+
+</body>
+</html>

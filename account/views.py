@@ -4,6 +4,13 @@ from django.http.response import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, get_user_model
 
+from control.views import dashboard
+
+#################### celery queing ############################
+
+from .task import *
+
+################# end of celery queing ######################
 
 ##################### CUSTOM USER MODEL ###########################
 
@@ -23,7 +30,7 @@ from django.template.loader import render_to_string
 ############## FORM VIEWS OF OTHER APPS ##############
 
 from home.views import user_page
-
+from control.views import dashboard
 ############## END FORM VIEWS OF OTHER APPS ##############
 
 
@@ -43,30 +50,40 @@ def registerpage(request):
                 user.is_active = True
                 user.save()
                 
-                # to the customer
-                template = render_to_string('regd_success_email.html', {'name': user.full_name})
-                email = EmailMessage(
-                    'Registration Successfull',                                   #subject
-                    template,                                                      # body
-                    settings.EMAIL_HOST_USER,
-                    [user.email],                                       # sender email
-                )
-                email.fail_silently = False
-                email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                email.send()
+                # for celery
+                
+                name = user.full_name
+                phone = user.phone_no
+                address = user.address
+                plan = user.plan
+                user_email= user.email
+
+                regd_send_email.delay(name, phone, address, plan, user_email)
+
+                # # to the customer
+                # template = render_to_string('regd_success_email.html', {'name': user.full_name})
+                # email = EmailMessage(
+                #     'Registration Successfull',                                   #subject
+                #     template,                                                      # body
+                #     settings.EMAIL_HOST_USER,
+                #     [user.email],                                       # sender email
+                # )
+                # email.fail_silently = False
+                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+                # email.send()
 
                 
-                # to the owners
-                template = render_to_string('hire.html', {'name': user.full_name, 'phone': user.phone_no, 'address': user.address, 'plan': user.plan, 'email': user.email})
-                email = EmailMessage(
-                    'New regsitration contact customer',                                   #subject
-                    template,                                                      # body
-                    settings.EMAIL_HOST_USER,
-                    ['confidentdriver.owner@gmail.com'],                                       # sender email
-                )
-                email.fail_silently = False
-                email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                email.send()
+                # # to the owners
+                # template = render_to_string('hire.html', {'name': user.full_name, 'phone': user.phone_no, 'address': user.address, 'plan': user.plan, 'email': user.email})
+                # email = EmailMessage(
+                #     'New regsitration contact customer',                                   #subject
+                #     template,                                                      # body
+                #     settings.EMAIL_HOST_USER,
+                #     ['confidentdriver.owner@gmail.com'],                                       # sender email
+                # )
+                # email.fail_silently = False
+                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+                # email.send()
                 
                 messages.success(request,'Your account has been created successfully.')
                 return redirect('login')
@@ -99,15 +116,22 @@ def registerpage(request):
                 
                 usr_otp = random.randint(100000, 999999)
                 UserOtp.objects.create(user = user, otp = usr_otp)
-                mess =  f"Hello, {user.full_name},\n Please enter the otp to validate your email and activate your account. \nYour OTP is {usr_otp} .\n Thanks!"
                 
-                send_mail(
-                    "Welcome to Confident Driver - Verify your Email",   #subject
-                    mess,  #message
-                    settings.EMAIL_HOST_USER,  # sender
-                    [user.email],           #reciever
-                    fail_silently= False
-                )
+                name= user.full_name
+                usr_otp = usr_otp
+                user_email = user.email
+                
+                otp_send_mail.delay(name, usr_otp, user_email)
+
+                # mess =  f"Hello, {user.full_name},\n Please enter the otp to validate your email and activate your account. \nYour OTP is {usr_otp} .\n Thanks!"
+                
+                # send_mail(
+                #     "Welcome to Confident Driver - Verify your Email",   #subject
+                #     mess,  #message
+                #     settings.EMAIL_HOST_USER,  # sender
+                #     [user.email],           #reciever
+                #     fail_silently= False
+                # )
 
                 return render(request, 'register.html', {'otp': True, 'user': user})
                 # return redirect('login')
@@ -134,30 +158,40 @@ def loginpage(request):
                 user.is_active = True
                 user.save()
                 
-                #to the customers
-                template = render_to_string('regd_success_email.html', {'name': user.full_name})
-                email = EmailMessage(
-                    'Registration Successfull',                                   #subject
-                    template,                                                      # body
-                    settings.EMAIL_HOST_USER,
-                    [user.email],                                       # sender email
-                )
-                email.fail_silently = False
-                email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                email.send()
+                # for celery
+                
+                name = user.full_name
+                phone = user.phone_no
+                address = user.address
+                plan = user.plan
+                user_email= user.email
+
+                regd_send_email.delay(name, phone, address, plan, user_email)
+                
+                # #to the customers
+                # template = render_to_string('regd_success_email.html', {'name': user.full_name})
+                # email = EmailMessage(
+                #     'Registration Successfull',                                   #subject
+                #     template,                                                      # body
+                #     settings.EMAIL_HOST_USER,
+                #     [user.email],                                       # sender email
+                # )
+                # email.fail_silently = False
+                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+                # email.send()
 
 
-                 # to the owners
-                template = render_to_string('hire.html', {'name': user.full_name, 'phone': user.phone_no, 'address': user.address, 'plan': user.plan, 'email': user.email})
-                email = EmailMessage(
-                    'New regsitration contact customer',                                   #subject
-                    template,                                                      # body
-                    settings.EMAIL_HOST_USER,
-                    ['confidentdriver.owner@gmail.com'],                                       # sender email
-                )
-                email.fail_silently = False
-                email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                email.send()
+                #  # to the owners
+                # template = render_to_string('hire.html', {'name': user.full_name, 'phone': user.phone_no, 'address': user.address, 'plan': user.plan, 'email': user.email})
+                # email = EmailMessage(
+                #     'New regsitration contact customer',                                   #subject
+                #     template,                                                      # body
+                #     settings.EMAIL_HOST_USER,
+                #     ['confidentdriver.owner@gmail.com'],                                       # sender email
+                # )
+                # email.fail_silently = False
+                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+                # email.send()
                 
                 login(request, user)
                 return redirect(user_page)
@@ -178,8 +212,13 @@ def loginpage(request):
         user = authenticate(request, email= email, password= password) #changed username to email because Custom User has no username field
 
         if user is not None:
-            login(request, user)
-            return redirect(user_page) # this is in home views
+            
+            if user.is_staff:
+                login(request, user)
+                return redirect(dashboard) # this is in control views
+            else:
+                login(request, user)
+                return redirect(user_page) # this is in home views
         
         elif not CustomUser.objects.filter(email=email).exists():
             messages.info(request, "No user with this username exists \n You are requested to register first.")
@@ -189,15 +228,22 @@ def loginpage(request):
 
             usr_otp = random.randint(100000, 999999)
             UserOtp.objects.create(user = user, otp = usr_otp)
-            mess =  f"Hello, {user.full_name},\n Please enter the otp to validate your email and activate your account. \nYour OTP is {usr_otp} .\n Thanks!"
             
-            send_mail(
-                "Welcome to Confident Driver - Verify your Email",   #subject
-                mess,  #message
-                settings.EMAIL_HOST_USER,  # sender
-                [user.email],           #reciever
-                fail_silently= False
-            )
+            name= user.full_name
+            usr_otp = usr_otp
+            user_email = user.email
+                
+            otp_send_mail.delay(name, usr_otp, user_email)
+            
+            # mess =  f"Hello, {user.full_name},\n Please enter the otp to validate your email and activate your account. \nYour OTP is {usr_otp} .\n Thanks!"
+            
+            # send_mail(
+            #     "Welcome to Confident Driver - Verify your Email",   #subject
+            #     mess,  #message
+            #     settings.EMAIL_HOST_USER,  # sender
+            #     [user.email],           #reciever
+            #     fail_silently= False
+            # )
             return render(request, 'login.html', {'otp': True, 'user': user})
         
         else:

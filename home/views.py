@@ -17,6 +17,8 @@ from django.http import HttpResponse
 from django.contrib import messages
 
 
+from .task import *
+
 # FOR EMAIL #
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
@@ -76,6 +78,8 @@ def contract(request):
     if request.method == 'POST':
            agreement = Contract()
            
+
+                # for celery
            if request.user.plan == '7days':
                 agreement.user = request.user
                 agreement.contract_status = True
@@ -84,34 +88,46 @@ def contract(request):
                 agreement.date_of_expiration = expiry
                 agreement.save()
 
+                name = request.user.full_name
+                plan = request.user.plan
+                price = 2000
+                user_email = request.user.email
+                accept = request.user.contract.date_of_acceptance
+                expire = request.user.contract.date_of_expiration
                 
-                # for the customers
-                template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 2000, 'accept': agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
-                email = EmailMessage(
-                    'Copy of Contract',                                   #subject
-                    template,                                                      # body
-                    settings.EMAIL_HOST_USER,
-                    [request.user.email],                                       # sender email
-                )
-                email.fail_silently = False
-                email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                email.send()
 
-                #for the owners
+                contract_send_emails.delay(name, user_email, plan, price, accept, expire)  # in task.py
 
-                template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 2000, 'accept': agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
-                email = EmailMessage(
-                    'Copy of Customer Contract',                                   #subject
-                    template,                                                      # body
-                    settings.EMAIL_HOST_USER,
-                    ['confidentdriver.contract@gmail.com'],                                       # sender email
-                )
-                email.fail_silently = False
-                email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                email.send()
+                # send_emails.delay()
+                # # for the customers
+                # template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 2000, 'accept': agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
+                # email = EmailMessage(
+                #     'Copy of Contract',                                   #subject
+                #     template,                                                      # body
+                #     settings.EMAIL_HOST_USER,
+                #     [request.user.email],                                       # sender email
+                # )
+                # email.fail_silently = False
+                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+                # email.send()
+
+                # #for the owners
+
+                # template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 2000, 'accept': agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
+                # email = EmailMessage(
+                #     'Copy of Customer Contract',                                   #subject
+                #     template,                                                      # body
+                #     settings.EMAIL_HOST_USER,
+                #     ['confidentdriver.contract@gmail.com'],                                       # sender email
+                # )
+                # email.fail_silently = False
+                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+                # email.send()
 
                 return redirect('user')
            
+
+                # for celery
            elif request.user.plan == '14days':   
                agreement.user = request.user
                agreement.contract_status = True
@@ -120,30 +136,39 @@ def contract(request):
                agreement.date_of_expiration = expiry
                agreement.save()
 
-               # for the customers 
-               template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 3500, 'accept': agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
-               email = EmailMessage(
-                    'Copy of Contract',                                   #subject
-                    template,                                                      # body
-                    settings.EMAIL_HOST_USER,
-                    [request.user.email],                                       # sender email
-                )
-               email.fail_silently = False
-               email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-               email.send()
+               name = request.user.full_name
+               plan = request.user.plan
+               price = 3500
+               user_email = request.user.email
+               accept = request.user.contract.date_of_acceptance
+               expire = request.user.contract.date_of_expiration
+                
+               contract_send_emails.delay(name, user_email, plan, price, accept, expire) #in task.py
+               
+            #    # for the customers 
+            #    template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 3500, 'accept': agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
+            #    email = EmailMessage(
+            #         'Copy of Contract',                                   #subject
+            #         template,                                                      # body
+            #         settings.EMAIL_HOST_USER,
+            #         [request.user.email],                                       # sender email
+            #     )
+            #    email.fail_silently = False
+            #    email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+            #    email.send()
 
-               #for the owners
+            #    #for the owners
 
-               template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 3500, 'accept': agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
-               email = EmailMessage(
-                    'Copy of Customer Contract',                                   #subject
-                    template,                                                      # body
-                    settings.EMAIL_HOST_USER,
-                    ['confidentdriver.contract@gmail.com'],                                       # sender email
-                )
-               email.fail_silently = False
-               email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-               email.send()
+            #    template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 3500, 'accept': agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
+            #    email = EmailMessage(
+            #         'Copy of Customer Contract',                                   #subject
+            #         template,                                                      # body
+            #         settings.EMAIL_HOST_USER,
+            #         ['confidentdriver.contract@gmail.com'],                                       # sender email
+            #     )
+            #    email.fail_silently = False
+            #    email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+            #    email.send()
                
                return redirect('user')
             
@@ -155,31 +180,41 @@ def contract(request):
                 agreement.date_of_expiration = expiry
                 agreement.save()
 
+                # for celery
+
+                name = request.user.full_name
+                plan = request.user.plan
+                price = 5000
+                user_email = request.user.email
+                accept = request.user.contract.date_of_acceptance
+                expire = request.user.contract.date_of_expiration
+
+                contract_send_emails.delay(name, user_email, plan, price, accept, expire)  # in task.py
                 
-                # for the customers
-                template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 5000,'accept':agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
-                email = EmailMessage(
-                    'Copy of Contract',                                   #subject
-                    template,                                                      # body
-                    settings.EMAIL_HOST_USER,
-                    [request.user.email],                                       # sender email
-                )
-                email.fail_silently = False
-                email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                email.send()
+                # # for the customers
+                # template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 5000,'accept':agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
+                # email = EmailMessage(
+                #     'Copy of Contract',                                   #subject
+                #     template,                                                      # body
+                #     settings.EMAIL_HOST_USER,
+                #     [request.user.email],                                       # sender email
+                # )
+                # email.fail_silently = False
+                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+                # email.send()
 
-                #for the owners
+                # #for the owners
 
-                template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 5000, 'accept': agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
-                email = EmailMessage(
-                    'Copy of Customer Contract',                                   #subject
-                    template,                                                      # body
-                    settings.EMAIL_HOST_USER,
-                    ['confidentdriver.contract@gmail.com'],                                       # sender email
-                )
-                email.fail_silently = False
-                email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                email.send()
+                # template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 5000, 'accept': agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
+                # email = EmailMessage(
+                #     'Copy of Customer Contract',                                   #subject
+                #     template,                                                      # body
+                #     settings.EMAIL_HOST_USER,
+                #     ['confidentdriver.contract@gmail.com'],                                       # sender email
+                # )
+                # email.fail_silently = False
+                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+                # email.send()
 
                 return redirect('user')
 
@@ -199,8 +234,6 @@ def upgrade(request):
         upgrade_details = Upgrade(user = user, initial_plan = initial_plan ,upgraded_to = upgraded_to, date_of_upgradation = date_of_upgradation)
 
         upgrade_details.save()
-
-        print('current plan before setting new plan:', request.user.plan)
 
         # getting objects
         current_user = CustomUser.objects.get(email = request.user)
@@ -232,55 +265,77 @@ def upgrade(request):
         
         if current_user.plan == '14days':
 
-            template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': current_user.plan,'price': 3500, 'accept': current_date.date_of_acceptance, 'expire':current_date.date_of_expiration})
-            email = EmailMessage(
-                'Copy of Updated Contract',                                   #subject
-                template,                                                      # body
-                settings.EMAIL_HOST_USER,
-                [request.user.email],                                       # sender email
-            )
-            email.fail_silently = False
-            email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-            email.send()
+            name = request.user.full_name
+            plan = current_user.plan
+            price = 3500
+            user_email = request.user.email
+            accept = current_date.date_of_acceptance
+            expire = current_date.date_of_expiration
         
-            #for the owners
-            template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': current_user.plan,'price': 3500, 'accept': current_date.date_of_acceptance, 'expire':current_date.date_of_expiration})
-            email = EmailMessage(
-                'Copy of Updated Customer Contract',                                   #subject
-                template,                                                      # body
-                settings.EMAIL_HOST_USER,
-                ['confidentdriver.contract@gmail.com'],                                       # sender email
-            )
-            email.fail_silently = False
-            email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-            email.send()
+            updated_contract_send_emails.delay(name, user_email, plan, price, accept, expire)  # in task.py
+
+            return render('user')
+                
+            # template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': current_user.plan,'price': 3500, 'accept': current_date.date_of_acceptance, 'expire':current_date.date_of_expiration})
+            # email = EmailMessage(
+            #     'Copy of Updated Contract',                                   #subject
+            #     template,                                                      # body
+            #     settings.EMAIL_HOST_USER,
+            #     [request.user.email],                                       # sender email
+            # )
+            # email.fail_silently = False
+            # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+            # email.send()
+        
+            # #for the owners
+            # template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': current_user.plan,'price': 3500, 'accept': current_date.date_of_acceptance, 'expire':current_date.date_of_expiration})
+            # email = EmailMessage(
+            #     'Copy of Updated Customer Contract',                                   #subject
+            #     template,                                                      # body
+            #     settings.EMAIL_HOST_USER,
+            #     ['confidentdriver.contract@gmail.com'],                                       # sender email
+            # )
+            # email.fail_silently = False
+            # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+            # email.send()
         else:
 
-            # for the customers
-            template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': current_user.plan,'price': 5000, 'accept': current_date.date_of_acceptance, 'expire':current_date.date_of_expiration})
-            email = EmailMessage(
-            'Copy of Updated Contract',                                   #subject
-            template,                                                      # body
-            settings.EMAIL_HOST_USER,
-            [request.user.email],                                       # sender email
-            )
-            email.fail_silently = False
-            email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-            email.send()
+            name = request.user.full_name
+            plan = current_user.plan
+            price = 5000
+            user_email = request.user.email
+            accept = current_date.date_of_acceptance
+            expire = current_date.date_of_expiration
+        
+            updated_contract_send_emails.delay(name, user_email, plan, price, accept, expire)  # in task.py
 
-            #for the owners
-            template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': current_user.plan,'price': 5000, 'accept': current_date.date_of_acceptance, 'expire':current_date.date_of_expiration})
-            email = EmailMessage(
-                'Copy of Updated Customer Contract',                                   #subject
-                template,                                                      # body
-                settings.EMAIL_HOST_USER,
-                ['confidentdriver.contract@gmail.com'],                                       # sender email
-            )
-            email.fail_silently = False
-            email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-            email.send()
+            
+            
+            # # for the customers
+            # template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': current_user.plan,'price': 5000, 'accept': current_date.date_of_acceptance, 'expire':current_date.date_of_expiration})
+            # email = EmailMessage(
+            # 'Copy of Updated Contract',                                   #subject
+            # template,                                                      # body
+            # settings.EMAIL_HOST_USER,
+            # [request.user.email],                                       # sender email
+            # )
+            # email.fail_silently = False
+            # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+            # email.send()
+
+            # #for the owners
+            # template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': current_user.plan,'price': 5000, 'accept': current_date.date_of_acceptance, 'expire':current_date.date_of_expiration})
+            # email = EmailMessage(
+            #     'Copy of Updated Customer Contract',                                   #subject
+            #     template,                                                      # body
+            #     settings.EMAIL_HOST_USER,
+            #     ['confidentdriver.contract@gmail.com'],                                       # sender email
+            # )
+            # email.fail_silently = False
+            # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
+            # email.send()
 
 
-        return redirect('user')
+            return redirect('user')
     else:
         return render(request, 'upgrade.html')

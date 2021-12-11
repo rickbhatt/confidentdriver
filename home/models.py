@@ -18,6 +18,7 @@ class CustomerQuery(models.Model):
 class Contract(models.Model):
     user = models.OneToOneField(CustomUser, null= True, on_delete=models.CASCADE)
     contract_status = models.BooleanField(default=False)
+    contract_expired = models.BooleanField(default=False)
     date_of_acceptance = models.DateTimeField(null= True)
     date_of_expiration = models.DateTimeField(null=True, blank=True)
 
