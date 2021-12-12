@@ -24,8 +24,11 @@ def regd_send_email(name, phone, address, plan, user_email):
             
             # to the owners
             template = render_to_string('hire.html', {'name': name, 'phone': phone, 'address': address, 'plan': plan, 'email': user_email})
+            
+            subject = f"New registration for {user_email} contact customer"
+            
             email = EmailMessage(
-                'New regsitration contact customer',                                   #subject
+                subject,                                   #subject
                 template,                                                      # body
                 settings.EMAIL_HOST_USER,
                 ['confidentdriver.owner@gmail.com'],                                       # sender email

@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from __future__ import absolute_import, unicode_literals
+
+
 from pathlib import Path
 import os
 
@@ -38,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_results',
     'home.apps.HomeConfig',
     'account.apps.AccountConfig',
     'control.apps.ControlConfig',
@@ -168,12 +172,26 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'confidentdriver.info@gmail.com'
-EMAIL_HOST_PASSWORD = 'jgstar1234'
+EMAIL_HOST_PASSWORD = 'qctjjiqdxpkiyjpk'
 
-############# CELERY #######################
+#################  REDIS SETTINGS ######################
 
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": os.environ.get('REDIS_URL'),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+
+############# CELERY SETTINGS #######################
+
+CELERY_BROKER_URL = os.environ['REDIS_URL']
 CELERY_ACCEPT_CONTENT =['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SELERLIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Kolkata'
+CELERY_RESULT_BACKEND = 'django-db'

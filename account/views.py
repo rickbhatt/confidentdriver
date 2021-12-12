@@ -8,7 +8,7 @@ from control.views import dashboard
 
 #################### celery queing ############################
 
-from .task import *
+from .tasks import *
 
 ################# end of celery queing ######################
 

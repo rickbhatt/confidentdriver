@@ -17,7 +17,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 
 
-from .task import *
+from .tasks import *
 
 # FOR EMAIL #
 from django.core.mail import send_mail, EmailMessage
@@ -175,7 +175,7 @@ def contract(request):
            else:
                 agreement.user = request.user
                 agreement.contract_status = True
-                expiry = datetime.now() + timedelta(days=21)
+                expiry = datetime.now() + timedelta(days=30)
                 agreement.date_of_acceptance = datetime.now()
                 agreement.date_of_expiration = expiry
                 agreement.save()
@@ -246,7 +246,7 @@ def upgrade(request):
                 current_date.date_of_expiration = current_date. date_of_expiration + timedelta(days=7)
                 current_date.save()
             else:
-                current_date.date_of_expiration = current_date. date_of_expiration + timedelta(days=14)
+                current_date.date_of_expiration = current_date. date_of_expiration + timedelta(days=23)
                 current_date.save()
         
         elif current_user.plan == '14days':

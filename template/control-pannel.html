@@ -31,28 +31,28 @@
             <ul class="control-nav-ul">
                 
                 <li class="control-nav-list">
-                    <a href="{% static url 'control-pannel' %}" class="control-nav-link">Dashboard <i class="fas fa-chart-line"></i></a>
+                    <a href="{% static url 'control-pannel' %}" class="control-nav-link"><span id="mobile">Dashboard</span> <i class="fas fa-chart-line"></i></a>
                 </li>
                 
                 <li class="control-nav-list">
-                    <a href="" class="control-nav-link">All Users <i class="fas fa-users"></i></a>
+                    <a href="" class="control-nav-link"> <span id="mobile">All Users</span> <i class="fas fa-users"></i></a>
                 </li>
 
                 <li class="control-nav-list">
-                    <a href="" class="control-nav-link">Contracts <i class="fas fa-file-signature"></i></a>
+                    <a href="" class="control-nav-link"> <span id="mobile">Contracts</span> <i class="fas fa-file-signature"></i></a>
                 </li>
 
                 <li class="control-nav-list">
-                    <a href="" class="control-nav-link">Upgdrades <i class="fas fa-upload"></i></a>
+                    <a href="" class="control-nav-link"> <span id="mobile"> Upgdrades</span> <i class="fas fa-upload"></i></a>
                 </li>
 
                 <li class="control-nav-list">
-                    <a href="" class="control-nav-link">All Staff <i class="fas fa-user-tie"></i></a>
+                    <a href="" class="control-nav-link"> <span id="mobile">All Staff</span> <i class="fas fa-user-tie"></i></a>
                 </li>
                 
                 <li class="control-nav-list">
                     {% if request.user.is_superuser %}
-                        <a href="http://confidentdriver.herokuapp.com/admin/" class="control-nav-link">SETTINGS <i class="fas fa-wrench"></i></a>
+                        <a href="http://confidentdriver.herokuapp.com/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a>
                     {% endif %}
                 </li>
             

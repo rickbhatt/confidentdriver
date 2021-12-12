@@ -325,9 +325,6 @@ ul li.price
 .explanation-heading p:nth-child(5),
 .explanation-heading p:nth-child(6),
 .explanation-heading p:nth-child(7)
-
-
-
 {
     margin-top: 25px;
     font-size: 18px;
@@ -344,7 +341,8 @@ ul li.price
     /* border: 2px solid orange; */
 }
 
-.plan-title
+.plan-title 
+
 {
     font-size: 48px;
     font-family: 'Montserrat', sans-serif;
@@ -366,6 +364,33 @@ ul li.price
     color: crimson;
 }
 
+.plan-benifits-heading{
+    font-size: 22px;
+    color: crimson;
+}
+
+.benifits-section
+{
+    /* border: 1px solid blue; */
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    
+}
+
+.plan-benifit-heading
+{
+    margin-block: 30px;
+    font-size: 48px;
+    font-family: 'Montserrat', sans-serif;
+    color: crimson;
+}
+
+.benifit
+{
+    font-size: 30px;
+    color: crimson;
+}
 /******************** END OF BELOW CARD SECTION *****************/
 
 

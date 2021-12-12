@@ -48,7 +48,7 @@
 
             <div class="contract-agreement">
                 <p class="agreement-contents">
-                    I, <b>{{request.user.full_name}}</b>, with email/ user id, <b>{{request.user.email}}</b> , have choosen the plan of <b>{{request.user.plan}}</b> during registration. I accept this agreement in the presence of my instructor, and agree to comply with the policies of the organisation. I agree to pay the amount {% if request.user.plan == '7days' %} <i class="fas fa-rupee-sign"></i> <b>2000</b> {% endif %} {% if request.user.plan == '14days' %} <i class="fas fa-rupee-sign"></i> <b>3500</b> {% endif %} {% if request.user.plan == '21days' %} <i class="fas fa-rupee-sign"></i> <b>5000</b> {% endif %} that has been fixed for the plan that I have opted for during the registration.
+                    I, <b>{{request.user.full_name}}</b>, with email/ user id, <b>{{request.user.email}}</b> , have choosen the plan of <b>{{request.user.plan}}</b> during registration. I accept this agreement in the presence of my instructor, and agree to comply with the policies of the organisation. I agree to pay the amount {% if request.user.plan == '7days' %} <i class="fas fa-rupee-sign"></i> <b>2000</b> {% endif %} {% if request.user.plan == '14days' %} <i class="fas fa-rupee-sign"></i> <b>3500</b> {% endif %} {% if request.user.plan == '30days' %} <i class="fas fa-rupee-sign"></i> <b>5000</b> {% endif %} that has been fixed for the plan that I have opted for during the registration.
                 </p>
 
                 

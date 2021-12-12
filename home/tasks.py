@@ -4,11 +4,13 @@ from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
 
+from django.utils import timezone
+
 
 @shared_task
 def contract_send_emails(name, user_email, plan, price, accept, expire):
      # for the customers
-                template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'plan': plan,'price': price, 'accept': accept, 'expire':expire})
+                template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'plan': plan,'price': price, 'accept': accept, 'expire': expire})
                 email = EmailMessage(
                     'Copy of Contract',                                   #subject
                     template,                                                      # body
@@ -22,8 +24,11 @@ def contract_send_emails(name, user_email, plan, price, accept, expire):
                 #for the owners
 
                 template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'plan': plan,'price': price, 'accept': accept, 'expire':expire})
+                
+                subject = f"Copy of contract for {user_email}"
+                
                 email = EmailMessage(
-                    'Copy of Customer Contract',                                   #subject
+                    subject,                                   #subject
                     template,                                                      # body
                     settings.EMAIL_HOST_USER,
                     ['confidentdriver.contract@gmail.com'],                                       # sender email
@@ -51,8 +56,12 @@ def updated_contract_send_emails(name, user_email, plan, price, accept, expire):
                 #for the owners
 
                 template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'plan': plan,'price': price, 'accept': accept, 'expire':expire})
+                
+                subject = f"Copy of updated contract for {user_email}"
+
+                
                 email = EmailMessage(
-                    'Copy of Updated Customer Contract',                                   #subject
+                    subject,                                   #subject
                     template,                                                      # body
                     settings.EMAIL_HOST_USER,
                     ['confidentdriver.contract@gmail.com'],                                       # sender email
