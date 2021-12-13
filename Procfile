@@ -1,2 +1,3 @@
+release: python manage.py migrate
 web: gunicorn jgs.wsgi --log-file -
-worker: celery worker --app=jgs.celery
+celery: celery -A jgs.celery worker --pool=solo -l info
