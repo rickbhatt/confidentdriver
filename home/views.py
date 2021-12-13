@@ -243,15 +243,15 @@ def upgrade(request):
         # setting new expiration dates
         if current_user.plan == '7days':
             if upgraded_to == '14days':
-                current_date.date_of_expiration = current_date. date_of_expiration + timedelta(days=1) #days=7
+                current_date.date_of_expiration = current_date. date_of_expiration + timedelta(days=0) #days=7
                 current_date.save()
             else:
-                current_date.date_of_expiration = current_date. date_of_expiration + timedelta(days=1) #days=23
+                current_date.date_of_expiration = current_date. date_of_expiration + timedelta(days=0) #days=23
                 current_date.save()
         
         elif current_user.plan == '14days':
 
-            current_date.date_of_expiration = current_date.date_of_expiration + timedelta(days=1) #days=1
+            current_date.date_of_expiration = current_date.date_of_expiration + timedelta(days=0) #days=1
             current_date.save()
         
         else:
