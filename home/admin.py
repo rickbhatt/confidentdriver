@@ -11,7 +11,7 @@ class ContractAdmin(admin.ModelAdmin):
 
 @admin.register(Contract)
 class ContractAdmin(admin.ModelAdmin):
-    list_display= ('user', 'contract_status','date_of_acceptance', 'date_of_expiration')
+    list_display= ('user', 'contract_status', 'contract_expired','date_of_acceptance', 'date_of_expiration')
     ordering=('-date_of_expiration',)
     search_fields=('user', 'date_of_acceptance', 'date_of_expiration')
 

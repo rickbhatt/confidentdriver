@@ -31,7 +31,7 @@
             <ul class="control-nav-ul">
                 
                 <li class="control-nav-list">
-                    <a href="{% static url 'control-pannel' %}" class="control-nav-link"><span id="mobile">Dashboard</span> <i class="fas fa-chart-line"></i></a>
+                    <a href="{% url 'dashboard' %}" class="control-nav-link"><span id="mobile">Dashboard</span> <i class="fas fa-chart-line"></i></a>
                 </li>
                 
                 <li class="control-nav-list">
@@ -52,7 +52,7 @@
                 
                 <li class="control-nav-list">
                     {% if request.user.is_superuser %}
-                        <a href="http://confidentdriver.herokuapp.com/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a>
+                        <a href="http://127.0.0.1:8000/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a>
                     {% endif %}
                 </li>
             

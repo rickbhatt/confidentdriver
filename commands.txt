@@ -1,7 +1,7 @@
 release: python manage.py migrate
-celery: celery -A jgs.celery worker --pool=solo -l info
+celery: celery -A jgs.celery worker -l info
 celerybeat: celery -A jgs beat -l INFO
 
 If on a free plan then to run celerybeat and celery in a ssingle dyno we write this command in procfile
 
-celeryworker: celery -A jgs.celery worker & celery -A jgs beat --pool=solo -l INFO & wait -n
+celeryworker: celery -A jgs.celery worker & celery -A jgs beat -l INFO & wait -n

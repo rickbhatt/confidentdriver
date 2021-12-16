@@ -19,6 +19,8 @@ from django.contrib import messages
 
 from .tasks import *
 
+from control.tasks import *
+
 # FOR EMAIL #
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
@@ -46,6 +48,8 @@ def home(request):
         return redirect('/')
 
     else:
+        # send_expiry_mail.delay()     
+
         return render(request, 'index.html')
 
 
@@ -83,7 +87,7 @@ def contract(request):
            if request.user.plan == '7days':
                 agreement.user = request.user
                 agreement.contract_status = True
-                expiry = datetime.now() + timedelta(days=1) #days=7
+                expiry = datetime.now() + timedelta(days=7) #days=7
                 agreement.date_of_acceptance = datetime.now()
                 agreement.date_of_expiration = expiry
                 agreement.save()
@@ -131,7 +135,7 @@ def contract(request):
            elif request.user.plan == '14days':   
                agreement.user = request.user
                agreement.contract_status = True
-               expiry = datetime.now() + timedelta(days=1) #days=14
+               expiry = datetime.now() + timedelta(days=14) #days=14
                agreement.date_of_acceptance = datetime.now()
                agreement.date_of_expiration = expiry
                agreement.save()
@@ -175,7 +179,7 @@ def contract(request):
            else:
                 agreement.user = request.user
                 agreement.contract_status = True
-                expiry = datetime.now() + timedelta(days=1) #days=30
+                expiry = datetime.now() + timedelta(days=30) #days=30
                 agreement.date_of_acceptance = datetime.now()
                 agreement.date_of_expiration = expiry
                 agreement.save()
@@ -243,15 +247,15 @@ def upgrade(request):
         # setting new expiration dates
         if current_user.plan == '7days':
             if upgraded_to == '14days':
-                current_date.date_of_expiration = current_date. date_of_expiration + timedelta(days=0) #days=7
+                current_date.date_of_expiration = current_date. date_of_expiration + timedelta(days=7) #days=7
                 current_date.save()
             else:
-                current_date.date_of_expiration = current_date. date_of_expiration + timedelta(days=0) #days=23
+                current_date.date_of_expiration = current_date. date_of_expiration + timedelta(days=23) #days=23
                 current_date.save()
         
         elif current_user.plan == '14days':
 
-            current_date.date_of_expiration = current_date.date_of_expiration + timedelta(days=0) #days=1
+            current_date.date_of_expiration = current_date.date_of_expiration + timedelta(days=16) #days=16
             current_date.save()
         
         else:

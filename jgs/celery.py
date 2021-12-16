@@ -6,6 +6,13 @@ from celery import Celery
 
 from django.conf import settings
 
+from celery.schedules import crontab
+
+from django.utils import timezone
+
+from datetime import timezone
+
+
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jgs.settings')
 
@@ -28,7 +35,12 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Celery beat settings 
 
-
+app.conf.beat_schedule = {
+    'send-expiry-email-everyday': {
+        'task': 'control.tasks.send_expiry_mail',
+        'schedule': crontab(hour=9, minute=0)
+    } 
+}
 
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()
