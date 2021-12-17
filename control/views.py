@@ -8,12 +8,14 @@ from home.models import *
 from account.models import *
 
 from .tasks import *
+
+from .decorators import OnlySuperuser
 # Create your views here.
 
 
 
 
-
+@OnlySuperuser
 def dashboard(request):
 
     all_users = CustomUser.objects.all().exclude(is_staff = True).count()
