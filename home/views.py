@@ -33,10 +33,15 @@ from django.template.loader import render_to_string
 def get_ip(request):
 
     try:
-        ip_forward = request.META.get('HTTP_X_FORWARDED')
+        ip_forward = request.META.get('HTTP_X_FORWARDED_FOR')
         if ip_forward:
+            print("returning forwarded for ip address")
             ip = ip_forward.split(",")[0]
+        elif request.META.get('HTTP_X_REAL_IP'):
+            print ("returning REAL_IP")
+            ip = request.META.get('HTTP_X_REAL_IP')
         else:
+            print("returning remote address")
             ip = request.META.get('REMOTE_ADDR')
     except:
         ip= ""
