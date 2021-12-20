@@ -11,17 +11,24 @@ from account.models import *
 from .tasks import *
 
 from .decorators import OnlySuperuser
+
+from django.contrib.auth.decorators import login_required
+
+from django.views.decorators.cache import cache_control
+
+
 # Create your views here.
 
 
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @OnlySuperuser
+@login_required(login_url='login')
 def dashboard(request):
 
     all_users = CustomUser.objects.all().filter(is_active = True).exclude(is_staff = True).count()
     
-    all_users_bydate = CustomUser.objects.all().filter(date_joined__contains= datetime.today().date()).count()
+    all_users_bydate = CustomUser.objects.all().filter(date_joined__contains= datetime.today().date()).exclude(is_staff = True).count()
 
     all_contracts = Contract.objects.all().count()
 

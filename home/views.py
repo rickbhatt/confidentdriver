@@ -4,6 +4,9 @@ from django.contrib.auth import logout
 
 from django.contrib.auth.decorators import login_required
 
+from django.views.decorators.cache import cache_control
+
+
 from .models import Contract, Upgrade, CustomerQuery
 
 from account.models import CustomUser
@@ -51,7 +54,7 @@ def get_ip(request):
     
     return ip
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @IfAuthenticatedUser
 def home(request):
 
@@ -84,13 +87,15 @@ def price(request):
     return render(request, 'price.html')
 
 
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='login')
 def user_page(request):
 
     return render(request, 'user.html')
 
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logoutUser(request):                                    # FOR LOGOUT
     if request.method == 'POST':
         logout(request)

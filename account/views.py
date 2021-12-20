@@ -6,6 +6,8 @@ from django.contrib.auth import login, logout, authenticate, get_user_model
 
 from control.views import dashboard
 
+from django.views.decorators.cache import cache_control
+
 #################### celery queing ############################
 
 from .tasks import *
@@ -141,7 +143,7 @@ def registerpage(request):
     else:
         return render(request, 'register.html')
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def loginpage(request):
 
     # user = get_user_model()
