@@ -75,8 +75,6 @@ def home(request):
     else:
      
         ip = get_ip(request)
-        
-        # print(ip)
         visitor_count.delay(ip)
         
         return render(request, 'index.html')

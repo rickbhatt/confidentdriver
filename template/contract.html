@@ -71,8 +71,14 @@
                 <form action="contract" method="post">
                     {% csrf_token %}
 
-                    {% if request.user.contract.contract_status %}
-                        <button class="agree-button" disabled="disabled">AGREED</button>
+                    {% if request.user.contract.contract_expired %}
+                        <button class="expired-button" disabled="disabled">CONTRACT EXPIRED</button>
+                    
+                    {% elif request.user.contract.contract_status  %}
+
+                         <button class="agree-button " disabled="disabled">AGREED</button>
+
+                    
                     {% else %}
                         
                         <div class="checkbox-button-container">

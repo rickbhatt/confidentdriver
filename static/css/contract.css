@@ -250,6 +250,29 @@ body
   margin-inline: 1rem;
 }
 
+.expired-button
+{
+    background-color: rgb(255, 2, 2);
+    color: #ffffff;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    padding: 10px 25px;
+    font-size: 17px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s ease-in;
+    text-transform: uppercase;
+    margin-inline: 1rem;
+}
+
+.expired-button:disabled
+{
+    cursor: not-allowed;
+
+}
+
 .agree-button:hover
 {
     transform: scaleX(1.1);
