@@ -73,8 +73,8 @@ def home(request):
      
         ip = get_ip(request)
         
-        print(ip)
-        # visitor_count.delay(ip)
+        # print(ip)
+        visitor_count.delay(ip)
         
         return render(request, 'index.html')
 
