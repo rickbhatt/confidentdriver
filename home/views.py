@@ -35,14 +35,17 @@ def get_ip(request):
     try:
         ip_forward = request.META.get('HTTP_X_FORWARDED_FOR')
         if ip_forward:
-            print("returning forwarded for ip address")
             ip = ip_forward.split(",")[0]
+            print("returning forwarded for ip address", ip)
+
         elif request.META.get('HTTP_X_REAL_IP'):
-            print ("returning REAL_IP")
             ip = request.META.get('HTTP_X_REAL_IP')
+            print ("returning REAL_IP ", ip)
+
         else:
-            print("returning remote address")
             ip = request.META.get('REMOTE_ADDR')
+            print("returning remote address ", ip)
+
     except:
         ip= ""
     
@@ -69,7 +72,9 @@ def home(request):
     else:
      
         ip = get_ip(request)
-        visitor_count.delay(ip)
+        
+        print(get_ip())
+        # visitor_count.delay(ip)
         
         return render(request, 'index.html')
 
