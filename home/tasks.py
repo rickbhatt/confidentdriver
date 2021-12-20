@@ -1,3 +1,4 @@
+from datetime import datetime
 from celery import shared_task
 
 from django.core.mail import send_mail, EmailMessage
@@ -71,3 +72,12 @@ def updated_contract_send_emails(name, user_email, plan, price, accept, expire):
                 email.send()
 
                 return None
+
+
+
+
+
+
+
+    
+    

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from datetime import datetime, date
 
+from . models import VisitorCount
 
 from home.models import *
 
@@ -18,7 +19,7 @@ from .decorators import OnlySuperuser
 @OnlySuperuser
 def dashboard(request):
 
-    all_users = CustomUser.objects.all().exclude(is_staff = True).count()
+    all_users = CustomUser.objects.all().filter(is_active = True).exclude(is_staff = True).count()
     
     all_users_bydate = CustomUser.objects.all().filter(date_joined__contains= datetime.today().date()).count()
 
@@ -28,9 +29,10 @@ def dashboard(request):
 
     contract_expire_today  = Contract.objects.all().filter(date_of_expiration__contains= datetime.today().date()).count()
     
+    visitor_today = VisitorCount.objects.all().filter(date_of_record__icontains = datetime.today().date()).count()
 
     # print('allcontracts', all_contracts)
     
-    context = {'all_users': all_users, 'all_users_bydate':all_users_bydate,'all_contracts':all_contracts ,'contract_signed_today':contract_signed_today,'contract_expire_today': contract_expire_today}
+    context = {'all_users': all_users, 'all_users_bydate':all_users_bydate,'all_contracts':all_contracts ,'contract_signed_today':contract_signed_today,'contract_expire_today': contract_expire_today, 'visitor_today': visitor_today}
 
-    return render(request, 'control_pannel.html', context)
+    return render(request, 'dashboard.html', context)

@@ -7,10 +7,12 @@ from django.template.loader import render_to_string
 
 from datetime import datetime, timedelta
 
+from . models import VisitorCount
 
 from account.models import CustomUser
 
 from home.models import Contract
+
 
 @shared_task(bind=True)
 def send_expiry_mail(self):
@@ -47,6 +49,22 @@ def send_expiry_mail(self):
             email.send()
    
 
+@shared_task
+def visitor_count(ip):
+
+    visitor = VisitorCount()
+
+    visitor.ip = ip
+    visitor.date_of_record = datetime.now()
+
+    if VisitorCount.objects.all().filter(ip = visitor.ip ,date_of_record__icontains= datetime.today().date()).exists():
+        pass
+        print("the ip", visitor.ip,"recorded on", visitor.date_of_record ,"already exists and wil not be saved")
+    else:
+        # print('this is the ip address of the user that has been saved', visitor.ip)
+
+        visitor.save()
+    return "saved"
 
     
 

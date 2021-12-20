@@ -21,6 +21,8 @@ from .tasks import *
 
 from control.tasks import *
 
+from control.models import VisitorCount
+
 # FOR EMAIL #
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
@@ -28,6 +30,18 @@ from django.template.loader import render_to_string
 
 # END FOR EMAIL #
 
+def get_ip(request):
+
+    try:
+        ip_forward = request.META.get('HTTP_X_FORWARDED')
+        if ip_forward:
+            ip = ip_forward.split(",")[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+    except:
+        ip= ""
+    
+    return ip
 
 
 @IfAuthenticatedUser
@@ -48,8 +62,10 @@ def home(request):
         return redirect('/')
 
     else:
-        # send_expiry_mail.delay()     
-
+     
+        ip = get_ip(request)
+        visitor_count.delay(ip)
+        
         return render(request, 'index.html')
 
 

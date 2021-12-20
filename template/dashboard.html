@@ -53,7 +53,7 @@
                 <li class="control-nav-list">
                     {% if request.user.is_superuser %}
                         <a href="https://confidentdriver.herokuapp.com/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a> 
-                        <!-- <a href="https://127.0.0.1:8000/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a>  -->
+                        <!-- <a href="http://127.0.0.1:8000/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a>  -->
 
                     {% endif %}
                 </li>
@@ -73,11 +73,11 @@
                     <div class="analytics-content">
                         
                         <div class="blob">
-                            <p class="figures">0</p>
+                            <p class="figures"> {{visitor_today}} </p>
                         </div>
                         
                         <p class="analytics-heading">
-                            Total Visitors
+                            Visits Today
                         </p>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.base import Model
 
 from account.models import CustomUser
 
@@ -12,3 +13,9 @@ class CustomerPaymentDetail(models.Model):
     transaction_id = models.CharField(max_length=255, null= True)
     date_of_payment = models.DateTimeField(null= True)
     paid = models.BooleanField(default= False)
+
+
+class VisitorCount(models.Model):
+
+    ip = models.TextField(null=True)
+    date_of_record = models.DateTimeField(null=True)
