@@ -136,7 +136,7 @@ def user_data(request):
         total_in_month=Count('email') # take visitor_id or whatever you want to count
         ).order_by('date_joined__month')
 
-    yearly_users = CustomUser.objects.all().values('date_joined__year').exclude(is_staff = True).annotate(
+    yearly_users = CustomUser.objects.all().values('date_joined__year').exclude(is_staff = True, is_active = False).annotate(
         total_in_year= Count('email')
         ).order_by('date_joined__year')
 
