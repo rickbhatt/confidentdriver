@@ -1,0 +1,123 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+
+    <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
+
+    
+    <link rel="stylesheet" href="{% static 'css/chart.css' %}">
+
+    <link rel="icon"href="{% static 'images/favicon.svg' %}">
+
+
+
+</head>
+<body>
+
+<div class="analytic-wrapper">
+    <div class="analytic-header">
+        <img src="{% static 'images/confidentdriverheader400.svg' %}" alt="" class="logo">
+            
+        <div class="logout-btn">
+            <a href="{% url 'logout' %}">LOGOUT</a>
+        </div>
+    </div>
+
+    <div class="analytic-nav-container">
+        <ul class="analytic-nav-ul">
+            
+            <li class="analytic-nav-list">
+                <a href="{% url 'dashboard' %}" class="analytic-nav-link"><span id="mobile">Dashboard</span> <i class="fas fa-tachometer-alt"></i></a>
+            </li>
+
+            <li class="analytic-nav-list">
+                <span id="mobile"></span><a href="{% url 'analytics' %}" class="analytic-nav-link">Analytics<i class="fas fa-chart-bar"></i></a></span> 
+            </li>
+            
+            <li class="analytic-nav-list">
+                <a href="" class="analytic-nav-link"> <span id="mobile">All Users</span> <i class="fas fa-users"></i></a>
+            </li>
+
+            <li class="analytic-nav-list">
+                <a href="" class="analytic-nav-link"> <span id="mobile">Contracts</span> <i class="fas fa-file-signature"></i></a>
+            </li>
+
+            <li class="analytic-nav-list">
+                <a href="" class="analytic-nav-link"> <span id="mobile"> Upgdrades</span> <i class="fas fa-upload"></i></a>
+            </li>
+
+            <li class="analytic-nav-list">
+                <a href="" class="analytic-nav-link"> <span id="mobile">All Staff</span> <i class="fas fa-user-tie"></i></a>
+            </li>
+            
+            <li class="analytic-nav-list">
+                {% if request.user.is_superuser %}
+                    <!-- <a href="https://confidentdriver.herokuapp.com/admin/" class="analytic-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a>  -->
+                    <a href="http://127.0.0.1:8000/admin/" class="analytic-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a> 
+
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+
+    <div class="analytic-contents">
+        <div class="chart-container-grid">
+            
+            <div class="charts">
+                
+                <canvas id="visitorMonthly" width="400" height="400"></canvas>
+
+            </div>
+
+            <div class="charts">
+                
+                <canvas id="visitorYearly" width="400" height="400"></canvas>
+
+            </div>
+
+            <div class="charts">
+                
+                <canvas id="usersMonthly" width="400" height="400"></canvas>
+
+            </div>
+
+            <div class="charts">
+                
+                <canvas id="usersYearly" width="400" height="400"></canvas>
+
+            </div>
+            
+            
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+<!------------------------- SCRIPTS --------------------------------------->
+
+<script type="text/javascript" src="{% static 'js/analytics.js' %}"></script>
+
+<!------------------------- END SCRIPTS --------------------------------------->
+
+</body>
+</html>

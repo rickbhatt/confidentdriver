@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Montserrat:wght@600&family=Oswald:wght@500&family=Poppins&family=Raleway:wght@800&family=Roboto+Slab&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body
+{
+    overflow-x: hidden;
+    /* background-color: hsl(var(--clr-neutral-200)); */
+    min-height: 100vh;
+}
+
+:root{
+    --clr-secondary-400: 217 19% 35%;
+
+}
+
+.analytic-header
+{
+    min-height: 60px;
+    background-image: radial-gradient(circle, #fffd00, #ffe700, #fed000, #fabb00, #f3a605);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px;
+}
+
+.logo
+
+{
+    width: 400px;
+    height: 100px;
+    /* border: 1px solid white; */
+}
+
+.logout-btn
+{
+    position: relative;
+    width: 9.68rem;
+    height: 3.1rem;
+    /* border: 1px solid red; */
+}
+
+.logout-btn a
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(20, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 35px;
+    z-index: 1;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.06rem;
+    transition: 0.5s;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+}
+
+.logout-btn:hover a
+{
+    letter-spacing: 0.2rem;
+
+}
+
+.logout-btn a::before
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.6), transparent);
+    transform: skewX(45deg) translateX(0);
+    transition: 0.5s;
+}
+
+
+.logout-btn:hover a::before
+{
+    transform: skewX(45deg) translateX(12.5rem);
+
+}
+
+.logout-btn::before
+{
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -5px;
+    width: 30px;
+    height: 10px;
+    background: #2bd2ff;
+    box-shadow:  0 0 5px #2bd2ff,
+                0 0 15px #2bd2ff,
+                0 0 30px #2bd2ff,
+                0 0 60px #2bd2ff;
+    border-radius: 10px;
+    transition: 0.5s;
+    transition-delay: 0s;
+}
+
+.logout-btn:hover::before
+{
+    bottom: 0;
+    height: 50%;
+    width: 80%;
+    border-radius: 30px;
+    transition-delay: 0.1s;
+}
+
+
+.logout-btn::after    
+{
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -5px;
+    width: 30px;
+    height: 10px;
+    background: #2bd2ff;
+    box-shadow: 0 0 5px #2bd2ff,
+    0 0 15px #2bd2ff,
+    0 0 30px #2bd2ff,
+    0 0 60px #2bd2ff;
+    border-radius: 10px;
+    transition: 0.5s;
+    transition-delay: 0s;
+}
+
+.logout-btn:hover::after
+{
+    top: 0;
+    height: 50%;
+    width: 80%;
+    border-radius: 30px;
+    transition-delay: 0.1s;
+}
+
+
+/* nav bar section */
+.analytic-nav-container
+{
+        /* border: 1px solid red; */
+        height: 40px;
+        /* background-image: radial-gradient(circle, #fffd00, #ffe700, #fed000, #fabb00, #f3a605); */
+        background: #14162e;
+        box-shadow: 0 15px 35px rgba(20, 0, 0, 0.2);
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+.analytic-nav-ul
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.analytic-nav-list
+{
+    list-style: none;
+    margin: 0 20px;
+}
+
+.analytic-nav-link
+{
+    color: #fff /*#1D2143*/;
+    text-decoration: none;
+    font-size: 0.99rem;
+    letter-spacing: 0.2rem;
+    font-family: 'Oswald', sans-serif;
+    transition: 0.2s;
+}
+
+.analytic-nav-link:hover
+{
+    letter-spacing: 0.4rem;
+
+}
+
+
+/* analytics section */
+
+.analytic-contents
+{
+    /* outline: 2px solid red; */
+    display: flex;
+    flex-direction:column;
+    gap: 1.5rem;
+}
+
+.chart-container-grid
+{
+    /* outline: 2px solid blue; */
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1.5rem;
+    width: min(95%, 100rem);
+    margin-inline: auto;
+}

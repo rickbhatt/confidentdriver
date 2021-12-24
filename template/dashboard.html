@@ -11,7 +11,7 @@
     
     <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
     
-    <link rel="stylesheet" href="{% static 'css/control-pannel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 
     <link rel="icon"href="{% static 'images/favicon.svg' %}">
 </head>
@@ -31,7 +31,11 @@
             <ul class="control-nav-ul">
                 
                 <li class="control-nav-list">
-                    <a href="{% url 'dashboard' %}" class="control-nav-link"><span id="mobile">Dashboard</span> <i class="fas fa-chart-line"></i></a>
+                    <a href="{% url 'dashboard' %}" class="control-nav-link"><span id="mobile">Dashboard</span> <i class="fas fa-tachometer-alt"></i></a>
+                </li>
+
+                <li class="control-nav-list">
+                    <span id="mobile"></span><a href="{% url 'analytics' %}" class="control-nav-link">Analytics<i class="fas fa-chart-bar"></i></a></span> 
                 </li>
                 
                 <li class="control-nav-list">
@@ -52,8 +56,8 @@
                 
                 <li class="control-nav-list">
                     {% if request.user.is_superuser %}
-                        <a href="https://confidentdriver.herokuapp.com/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a> 
-                        <!-- <a href="http://127.0.0.1:8000/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a>  -->
+                        <!-- <a href="https://confidentdriver.herokuapp.com/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a>  -->
+                        <a href="http://127.0.0.1:8000/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a> 
 
                     {% endif %}
                 </li>
@@ -69,7 +73,8 @@
             </div>
 
             <div class="analytics-container">
-                <div class="analytics-box">
+                
+                <div class="analytics-box visitor-today">
                     <div class="analytics-content">
                         
                         <div class="blob">
@@ -81,8 +86,34 @@
                         </p>
                     </div>
                 </div>
+                
+                <div class="analytics-box monthly-visitor">
+                    <div class="analytics-content">
+                        
+                        <div class="blob">
+                            <p class="figures"> {{current_month_visitor}} </p>
+                        </div>
+                        
+                        <p class="analytics-heading">
+                            Visits This Month
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="analytics-box yearly-visitor">
+                    <div class="analytics-content">
+                        
+                        <div class="blob">
+                            <p class="figures"> {{current_year_visitor}} </p>
+                        </div>
+                        
+                        <p class="analytics-heading">
+                            Visits This Year
+                        </p>
+                    </div>
+                </div>
 
-                <div class="analytics-box">
+                <div class="analytics-box all-users-today">
                    <div class="analytics-content">
                         
                         <div class="blob">
@@ -95,7 +126,7 @@
                    </div>
                 </div>
 
-                <div class="analytics-box">
+                <div class="analytics-box all-users">
                     <div class="analytics-content">
                         
                         <div class="blob">
@@ -108,7 +139,7 @@
                     </div>
                 </div>
 
-                <div class="analytics-box">
+                <div class="analytics-box all-contracts">
                     <div class="analytics-content">
                         
                         <div class="blob">
@@ -121,7 +152,7 @@
                     </div>
                 </div>
 
-                <div class="analytics-box">
+                <div class="analytics-box contacts-signed-today">
                     <div class="analytics-content">
                         
                         <div class="blob">
@@ -134,7 +165,7 @@
                     </div>
                 </div>
 
-                <div class="analytics-box">
+                <div class="analytics-box contracts-expiring-today">
                     <div class="analytics-content">
                         
                         <div class="blob">
