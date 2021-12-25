@@ -35,11 +35,11 @@ def dashboard(request):
 
     currentYear = datetime.now()
     
-    all_users = CustomUser.objects.all().filter(is_active = True).exclude(is_staff = True).count()
+    all_users = CustomUser.objects.all().filter(is_active = True).exclude(is_staff = True).exclude(is_active = False).count()
     
-    all_users_bydate = CustomUser.objects.all().filter(date_joined__contains= datetime.today().date()).exclude(is_staff = True).count()
+    all_users_bydate = CustomUser.objects.all().filter(date_joined__contains= datetime.today().date()).exclude(is_staff = True).exclude(is_active = False).count()
 
-    current_month_user = CustomUser.objects.all().filter(date_joined__month = today.month, date_joined__year = currentYear.year).exclude(is_staff = True).count()
+    current_month_user = CustomUser.objects.all().filter(date_joined__month = today.month, date_joined__year = currentYear.year).exclude(is_staff = True).exclude(is_active = False).exclude(is_staff = True).count()
 
     all_contracts = Contract.objects.all().count()
 
