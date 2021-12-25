@@ -11,6 +11,9 @@ urlpatterns=[
     path('staff-list',views.staff_list, name='staff-list'),
     path('payments-form',views.payments_form, name='payments-form'),
 
+    # path('nav',views.nav, name='nav'),
+
+
     
     ############### for ajax calls #########################
     path('visitor-data',views.visitor_data, name='visitor-data'),

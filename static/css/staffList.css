@@ -19,7 +19,8 @@ body
 
 }
 
-.analytic-header
+/* header section */
+.staff-list-header
 {
     min-height: 60px;
     background-image: radial-gradient(circle, #fffd00, #ffe700, #fed000, #fabb00, #f3a605);
@@ -27,6 +28,7 @@ body
     align-items: center;
     justify-content: space-between;
     padding: 10px 40px;
+    
 }
 
 .logo
@@ -155,24 +157,3 @@ body
     transition-delay: 0.1s;
 }
 
-
-/* analytics section */
-
-.analytic-contents
-{
-    /* outline: 2px solid red; */
-    display: flex;
-    flex-direction:column;
-    gap: 1.5rem;
-}
-
-.chart-container-grid
-{
-    /* outline: 2px solid blue; */
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(2, 1fr);
-    padding: 1.5rem;
-    width: min(95%, 100rem);
-    margin-inline: auto;
-}

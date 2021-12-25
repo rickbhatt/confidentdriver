@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Pannel | Contracts Info</title>
+    <link rel="stylesheet" href="{% static 'css/contractList.css' %}">
+</head>
+<body>
+<div class="contract-list-wrapper">
+    <div class="contract-list-header">
+        <img src="{% static 'images/confidentdriverheader400.svg' %}" alt="" class="logo">
+        
+        <div class="logout-btn">
+            <a href="{% url 'logout' %}">LOGOUT</a>
+        </div>
+    </div>
+
+    {% include 'control_nav_bar.html' %}
+
+
+</div>
+</body>
+</html>

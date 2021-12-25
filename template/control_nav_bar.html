@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="{% static 'css/control_nav.css' %}">
+
+</head>
+<body>
+    <div class="control-nav-container">
+        <ul class="control-nav-ul">
+            
+            <li class="control-nav-list">
+                <a href="{% url 'dashboard' %}" class="control-nav-link"><span id="mobile">Dashboard</span> <i class="fas fa-tachometer-alt"></i></a>
+            </li>
+
+            <span id="mobile"><li class="control-nav-list">
+                <a href="{% url 'analytics' %}" class="control-nav-link">Analytics<i class="fas fa-chart-bar"></i></a> 
+            </li></span>
+            
+            <li class="control-nav-list">
+                <a href="{% url 'user-list' %}" class="control-nav-link"><span id="mobile">Users</span> <i class="fas fa-users"></i></a>
+            </li>
+
+            <li class="control-nav-list">
+                <a href="{% url 'contract-list' %}" class="control-nav-link"> <span id="mobile">Contracts</span> <i class="fas fa-file-signature"></i></a>
+            </li>
+
+            <!-- <li class="control-nav-list">
+                <a href="" class="control-nav-link"> <span id="mobile"> Upgdrades</span> <i class="fas fa-upload"></i></a>
+            </li> -->
+
+            <li class="control-nav-list">
+                <a href="{% url 'staff-list' %}" class="control-nav-link"> <span id="mobile">Staffs</span> <i class="fas fa-user-tie"></i></a>
+            </li>
+
+            <li class="control-nav-list">
+                <a href="{% url 'payments-form' %}" class="control-nav-link"> <span id="mobile">Payments</span> <i class="fas fa-receipt"></i></a>
+            </li>
+            
+            
+            <li class="control-nav-list">
+                {% if request.user.is_superuser %}
+                    <a href="https://confidentdriver.herokuapp.com/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a> 
+                    <!-- <a href="http://127.0.0.1:8000/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a>  -->
+
+                {% endif %}
+            </li>
+        
+        </ul>
+    </div>
+</body>
+</html>

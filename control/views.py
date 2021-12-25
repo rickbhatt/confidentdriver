@@ -4,6 +4,8 @@ from django.http import JsonResponse
 
 from datetime import datetime, date
 
+import control
+
 from . models import VisitorCount
 
 from home.models import *
@@ -25,6 +27,12 @@ from django.db.models import Count, F, Func, Value, CharField
 from django.http import JsonResponse
 
 ####################### DASHBOARD ############################
+
+
+# def nav(request):
+
+#     return render(request, 'control_nav_bar.html')`
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @OnlySuperuser
