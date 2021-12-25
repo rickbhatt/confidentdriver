@@ -49,10 +49,7 @@
     .control-nav-container{
         position: relative;
     }
-    
-    
-    
-      
+     
       .control-nav-list{
           margin: 0 15px;
       }
@@ -62,4 +59,9 @@
         font-size: 1rem;
           
       }
+
+      #mobile{
+        display: none;
+      }
+  
 }

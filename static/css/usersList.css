@@ -157,3 +157,26 @@ body
     transition-delay: 0.1s;
 }
 
+@media (max-width: 490px)
+{
+    .user-list-header{
+        min-height: 30px;
+        padding: 10px;
+
+    }
+
+    .logo{
+        width: 200px;
+        height: 50px;
+      }
+    
+      .logout-btn{
+        width: 5rem;
+        height: 1.6rem;
+      }
+    
+      .logout-btn a{
+    
+        font-size: 0.8rem;
+      }
+}
