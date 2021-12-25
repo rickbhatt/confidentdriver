@@ -31,7 +31,7 @@ $(document).ready(function(){
             data: {
                 labels: visitormonthnumber,
                 datasets: [{
-                    label: 'Monthly Visitors',
+                    label: 'Visitors Per Month For The Current Year',
                     data: visitorpermonth,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -67,7 +67,7 @@ $(document).ready(function(){
             data: {
                 labels: visitoryearnuber,
                 datasets: [{
-                    label: 'Yearly Visitors',
+                    label: 'Visitors Per Year',
                     data:  visitorperyear,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -126,7 +126,7 @@ $(document).ready(function(){
             data: {
                 labels: usermonthnumber,
                 datasets: [{
-                    label: 'Monthly Users',
+                    label: 'Users Per Month For The Current Year',
                     data: userpermonth,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -162,7 +162,7 @@ $(document).ready(function(){
             data: {
                 labels: usersyearnumber,
                 datasets: [{
-                    label: 'Yearly User',
+                    label: 'Users Per Year',
                     data:  usersperyear,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',

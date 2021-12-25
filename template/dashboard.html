@@ -46,18 +46,23 @@
                     <a href="" class="control-nav-link"> <span id="mobile">Contracts</span> <i class="fas fa-file-signature"></i></a>
                 </li>
 
-                <li class="control-nav-list">
+                <!-- <li class="control-nav-list">
                     <a href="" class="control-nav-link"> <span id="mobile"> Upgdrades</span> <i class="fas fa-upload"></i></a>
-                </li>
+                </li> -->
 
                 <li class="control-nav-list">
                     <a href="" class="control-nav-link"> <span id="mobile">All Staff</span> <i class="fas fa-user-tie"></i></a>
                 </li>
+
+                <li class="control-nav-list">
+                    <a href="" class="control-nav-link"> <span id="mobile">Payments</span> <i class="fas fa-receipt"></i></a>
+                </li>
+                
                 
                 <li class="control-nav-list">
                     {% if request.user.is_superuser %}
-                        <a href="https://confidentdriver.herokuapp.com/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a> 
-                        <!-- <a href="http://127.0.0.1:8000/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a>  -->
+                        <!-- <a href="https://confidentdriver.herokuapp.com/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a>  -->
+                        <a href="http://127.0.0.1:8000/admin/" class="control-nav-link"><span id="mobile">SETTINGS</span> <i class="fas fa-wrench"></i></a> 
 
                     {% endif %}
                 </li>
@@ -125,6 +130,19 @@
                         </p>
                    </div>
                 </div>
+
+                <div class="analytics-box current-month-users">
+                    <div class="analytics-content">
+                         
+                         <div class="blob">
+                             <p class="figures">{{current_month_user}}</p>
+                         </div>
+ 
+                         <p class="analytics-heading">
+                             Users This Month
+                         </p>
+                    </div>
+                 </div>
 
                 <div class="analytics-box all-users">
                     <div class="analytics-content">

@@ -20,10 +20,11 @@ from django.views.decorators.cache import cache_control
 
 from django.db.models.functions import ExtractMonth, ExtractYear
 
-from django.db.models import Count
+from django.db.models import Count, F, Func, Value, CharField
 
 from django.http import JsonResponse
 
+####################### DASHBOARD ############################
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @OnlySuperuser
@@ -31,10 +32,14 @@ from django.http import JsonResponse
 def dashboard(request):
 
     today = datetime.today()
+
+    currentYear = datetime.now()
     
     all_users = CustomUser.objects.all().filter(is_active = True).exclude(is_staff = True).count()
     
     all_users_bydate = CustomUser.objects.all().filter(date_joined__contains= datetime.today().date()).exclude(is_staff = True).count()
+
+    current_month_user = CustomUser.objects.all().filter(date_joined__month = today.month, date_joined__year = currentYear.year).exclude(is_staff = True).count()
 
     all_contracts = Contract.objects.all().count()
 
@@ -46,13 +51,14 @@ def dashboard(request):
     
     visitor_today = VisitorCount.objects.all().filter(date_of_record__icontains = datetime.today().date()).count()
 
-    current_month_visitor = VisitorCount.objects.all().filter(date_of_record__month = today.month).count()
+    current_month_visitor = VisitorCount.objects.all().filter(date_of_record__month = today.month, date_of_record__year=currentYear.year).count()
 
     current_year_visitor = VisitorCount.objects.all().filter(date_of_record__year = today.year).count()
 
 
     context = {
-    'all_users': all_users, 
+    'all_users': all_users,
+    'current_month_user': current_month_user, 
     'all_users_bydate':all_users_bydate,
     'all_contracts':all_contracts ,'contract_signed_today':contract_signed_today,
     'contract_expire_today': contract_expire_today, 'total_visitors':total_visitors ,
@@ -63,22 +69,61 @@ def dashboard(request):
 
     return render(request, 'dashboard.html', context)
 
-
+####################### ANALYTICS ############################
     
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @OnlySuperuser
 @login_required(login_url='login')
 def analytics(request):
 
-    user_data(request)
-    
     return render(request, "chart.html")
+
+####################### USERS LIST ############################
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@OnlySuperuser
+@login_required(login_url='login')
+def user_list(request):
+
+    return render(request, "user_list.html")
+
+####################### USER CONTRACT LIST ############################
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@OnlySuperuser
+@login_required(login_url='login')
+def contract_list(request):
+
+    return render(request, "contract_list.html")
+
+####################### STAFF LIST ############################
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@OnlySuperuser
+@login_required(login_url='login')
+def staff_list(request):
+
+    return render(request, "staff_list.html")
+
+####################### PAYMENTS FORM ############################
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@OnlySuperuser
+@login_required(login_url='login')
+def payments_form(request):
+
+    return render(request, "payments_form.html")
 
 
 
 ################## FOR AJAX CALLS ##############################
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@OnlySuperuser
+@login_required(login_url='login')
 def visitor_data(request):  # for visirtors
+    
+    currentYear = datetime.now()
     
     visitorMonthNumber = []
     visitorNumberMonthly = []
@@ -86,11 +131,21 @@ def visitor_data(request):  # for visirtors
     vistorYearNumber =[]
     visitorNumberYearly = []
 
-    monthly_visitor = VisitorCount.objects.all().values(
-    'date_of_record__month'
-    ).annotate(
-        total_in_month=Count('ip') # take visitor_id or whatever you want to count
+    monthly_visitor = VisitorCount.objects.all().filter(
+    date_of_record__year=currentYear.year
+        ).values(
+            'date_of_record__month'
+        ).annotate(
+            total_in_month=Count('ip'),
+            formatted_date=Func(
+                F('date_of_record'),
+                Value('MONTH'),
+                function='to_char',
+                output_field=CharField()
+            )
         ).order_by('date_of_record__month')
+    
+    print("\n", monthly_visitor, "\n")
     
     yearly_visitor = VisitorCount.objects.all().values('date_of_record__year').annotate(
         total_in_year= Count('ip')
@@ -98,7 +153,7 @@ def visitor_data(request):  # for visirtors
 
     for i in range(len(monthly_visitor)):
 
-        visitorMonthNumber.append(monthly_visitor[i]['date_of_record__month'])
+        visitorMonthNumber.append(monthly_visitor[i]['formatted_date'])
         visitorNumberMonthly.append(monthly_visitor[i]['total_in_month']) 
     
     print("\nthis is the list of month number =", visitorMonthNumber, "\n", "\nthis is the number of visitors", visitorNumberMonthly, "\n")
@@ -121,19 +176,30 @@ def visitor_data(request):  # for visirtors
 
     return JsonResponse(visitor_stats)
     
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@OnlySuperuser
+@login_required(login_url='login')
 def user_data(request):  #for users
 
+    currentYear = datetime.now()
+
+    
     userspermonth = []
     usersmonthnumber =[]
 
     usersperyear =[]
     usersyearnumber = []
     
-    monthly_users = CustomUser.objects.all().values(
+    monthly_users = CustomUser.objects.all().filter(date_joined__year = currentYear.year).values(
     'date_joined__month'
     ).exclude(is_staff = True).exclude(is_active=False).annotate(
-        total_in_month=Count('email') # take visitor_id or whatever you want to count
+        total_in_month=Count('email'),
+        formatted_date=Func(
+                F('date_joined'),
+                Value('MONTH'),
+                function='to_char',
+                output_field=CharField()
+            ) 
         ).order_by('date_joined__month')
 
     yearly_users = CustomUser.objects.all().values('date_joined__year').exclude(is_staff = True).exclude(is_active =False).annotate(
@@ -142,7 +208,7 @@ def user_data(request):  #for users
 
     for i in range(len(monthly_users)):
 
-        usersmonthnumber.append(monthly_users[i]['date_joined__month'])
+        usersmonthnumber.append(monthly_users[i]['formatted_date'])
         userspermonth.append(monthly_users[i]['total_in_month']) 
     
     for j in range(len( yearly_users)):

@@ -269,24 +269,29 @@ body
     grid-area: four;
 }
 
-.all-users
+.current-month-users
 {
     grid-area: five;
 }
 
-.all-contracts
+.all-users
 {
     grid-area: six;
 }
 
-.contacts-signed-today
+.all-contracts
 {
     grid-area: seven;
 }
 
-.contracts-expiring-today
+.contacts-signed-today
 {
     grid-area: eight;
+}
+
+.contracts-expiring-today
+{
+    grid-area: nine;
 }
 
 .analytics-content{
