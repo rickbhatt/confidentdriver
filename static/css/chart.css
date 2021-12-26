@@ -174,5 +174,61 @@ body
     grid-template-columns: repeat(2, 1fr);
     padding: 1.5rem;
     width: min(95%, 100rem);
-    margin-inline: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 490px)
+{
+    .analytic-header{
+        min-height: 30px;
+        padding: 10px;
+
+    }
+
+    .logo{
+        width: 200px;
+        height: 50px;
+      }
+    
+      .logout-btn{
+        width: 5rem;
+        height: 1.6rem;
+      }
+    
+      .logout-btn a{
+    
+        font-size: 0.8rem;
+      }
+
+      .analytic-contents
+      {
+          outline: 2px solid blue;
+          display: flex;
+          flex-direction:column;
+          gap: 1.5rem;
+      }
+    
+      .chart-container-grid
+    {
+        /* outline: 2px solid blue; */
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(1, 1fr);
+        padding: 0.5rem;
+        width: min(95%, 100rem);
+        align-items: center;
+        justify-content: center;
+        margin-inline: auto;
+    }
+
+    .charts
+    {
+       /* outline: 2px solid red; */
+       margin-top: 2rem;
+       width: 95%;
+       height: 100%;
+       margin-inline: auto;
+
+    }
 }
