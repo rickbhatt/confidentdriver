@@ -21,6 +21,40 @@
 
     {% include 'control_nav_bar.html' %}
 
+    <div class="staffList-filter-container">
+
+    </div>
+
+    <div class="staffList-content">
+
+        <div class="staffList-count-container">
+            <p class="staffList-count"> <strong>Total Staff : </strong> {{staffListCount}} </p>
+        </div>
+        <div class="staffList-table-container">
+            <table class="staffList-table">
+                <tr>
+                    <th class="staffList-table-header">Sl. No.</th>
+                    <th class="staffList-table-header">Email</th>
+                    <th class="staffList-table-header">Full Name</th>
+                    <th class="staffList-table-header">Phone Number</th>
+                    <th class="staffList-table-header">Last Login</th>
+                </tr>
+
+                {% for staff in staffList %}
+
+                    <tr class="staffList-column-row">
+                        <td class="staffList-column"></td>
+                        <td class="staffList-column staffList-email"> {{staff.email}} </td>
+                        <td class="staffList-column"> {{staff.full_name}} </td>
+                        <td class="staffList-column"> {{staff.phone_no}} </td>
+                        <td class="staffList-column"> {{staff.last_login}} </td>
+                    </tr>
+
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
 
 </div>
 </body>

@@ -93,7 +93,14 @@ def analytics(request):
 @login_required(login_url='login')
 def user_list(request):
 
-    return render(request, "user_list.html")
+    userList = CustomUser.objects.all().exclude(is_staff = True)
+
+    userListCount = CustomUser.objects.all().exclude(is_staff = True).count()
+    
+    context = {'userList': userList,
+                'userListCount': userListCount}
+
+    return render(request, "user_list.html", context)
 
 ####################### USER CONTRACT LIST ############################
 
@@ -102,7 +109,11 @@ def user_list(request):
 @login_required(login_url='login')
 def contract_list(request):
 
-    return render(request, "contract_list.html")
+    contractList = Contract.objects.all()
+
+    context = {'contractList': contractList}
+    
+    return render(request, "contract_list.html", context)
 
 ####################### STAFF LIST ############################
 
@@ -111,7 +122,14 @@ def contract_list(request):
 @login_required(login_url='login')
 def staff_list(request):
 
-    return render(request, "staff_list.html")
+    staffList = CustomUser.objects.filter(is_staff = True)
+
+    staffListCount = CustomUser.objects.filter(is_staff = True).count()
+
+    context = {'staffList': staffList,
+                'staffListCount': staffListCount}
+    
+    return render(request, "staff_list.html", context)
 
 ####################### PAYMENTS FORM ############################
 

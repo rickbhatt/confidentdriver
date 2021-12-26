@@ -18,8 +18,39 @@
             <a href="{% url 'logout' %}">LOGOUT</a>
         </div>
     </div>
-
+<!-- nav basr section -->
     {% include 'control_nav_bar.html' %}
+<!-- end of nav bar section -->
+
+    <div class="contractList-filter-container">
+
+    </div>
+
+    <div class="contractList-content">
+        <div class="contractList-table-container">
+            <table class="contractList-table">
+                <tr>
+                    <th class="contractList-table-header">Sl. No. </th>
+                    <th class="contractList-table-header">Email</th>
+                    <th class="contractList-table-header">Contract Status</th>
+                    <th class="contractList-table-header">Expire Status</th>
+                    <th class="contractList-table-header">Date of Acceptance</th>
+                    <th class="contractList-table-header">Date of Expiration</th>
+                </tr>
+
+                {% for contract in contractList %}
+                    <tr class="contractList-column-row">
+                        <td class="contractList-column"></td>
+                        <td class="contractList-column contractList-email"> {{contract.user}} </td>
+                        <td class="contractList-column"> {% if contract.contract_status %} <span class="status-active">Active</span> {% else %} <span class="status-notactive">Not Active</span> {% endif %} </td>
+                        <td class="contractList-column"> {% if contract.contract_expired %} <span class="status-active">Expired</span> {% else %} <span class="status-notactive">Not Expired</span> {% endif %} </td>
+                        <td class="contractList-column"> {{contract.date_of_acceptance}} </td>
+                        <td class="contractList-column"> {{contract.date_of_expiration}} </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 
 
 </div>

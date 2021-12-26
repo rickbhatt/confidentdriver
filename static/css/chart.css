@@ -203,7 +203,7 @@ body
 
       .analytic-contents
       {
-          outline: 2px solid blue;
+          /* outline: 2px solid blue; */
           display: flex;
           flex-direction:column;
           gap: 1.5rem;

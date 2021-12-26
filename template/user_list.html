@@ -18,9 +18,53 @@
             <a href="{% url 'logout' %}">LOGOUT</a>
         </div>
     </div>
-
+<!-- nav bar section -->
     {% include 'control_nav_bar.html' %}
+<!-- end of nav bar section -->
+    <div class="userList-filter-container">
 
+    </div>
+
+    <div class="userList-content">
+        
+        <div class="user-count-container">
+            <p class="user-count"> <strong>Total Users :</strong> {{userListCount}} </p>
+        </div>
+        
+        <div class="userList-table-container">
+            <table class="userList-table">
+                <tr>
+                    <th  class="userList-table-header">Sl. No.</th>
+                    <th  class="userList-table-header">Email</th>
+                    <th  class="userList-table-header">Full Name</th>
+                    <th  class="userList-table-header">Phone No</th>
+                    <th  class="userList-table-header">Active Status</th>
+                    <th  class="userList-table-header">Address</th>
+                    <th  class="userList-table-header">Plan</th>
+                    <th  class="userList-table-header">Age</th>
+                    <th  class="userList-table-header">Date Joined</th>
+                </tr>
+
+                {% for user in userList %}
+
+                    <tr class="userList-column-row">
+                        
+                        <td  class="userList-table-column">  </td>
+                        <td  class="userList-table-column userList-email"> {{user.email}} </td>
+                        <td  class="userList-table-column"> {{user.full_name}} </td>
+                        <td  class="userList-table-column"> {{user.phone_no}} </td>
+                        <td  class="userList-table-column"> {% if user.is_active %} <span class="status-active">Active</span>  {% else %} <span class="status-notactive">Not Active</span>  {% endif %}</td>
+                        <td  class="userList-table-column"> {{user.address}} </td>
+                        <td  class="userList-table-column"> {{user.plan}} </td>
+                        <td  class="userList-table-column"> {{user.age}} </td>
+                        <td  class="userList-table-column"> {{user.date_joined}} </td>
+                    </tr>
+
+                {% endfor %}
+
+            </table>
+       </div>
+    </div>
 
 </div>
 </body>

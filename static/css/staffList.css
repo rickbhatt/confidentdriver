@@ -12,6 +12,8 @@ body
     overflow-x: hidden;
     /* background-color: hsl(var(--clr-neutral-200)); */
     min-height: 100vh;
+    counter-reset: Serial;
+
 }
 
 :root{
@@ -157,6 +159,99 @@ body
     transition-delay: 0.1s;
 }
 
+/* staff list content */
+
+.staffList-content
+{
+    /* outline: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.staffList-count-container
+{
+    /* outline: 2px solid green; */
+    margin-top: 2rem;
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    padding-inline: 1.9rem;
+}
+
+.staffList-count
+{
+    color: crimson;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+}
+
+/* table */
+
+.staffList-table
+{
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
+}
+
+.staffList-table-header
+{
+    font-family: 'Raleway', sans-serif;
+
+}
+
+.staffList-column:first-child::before
+{
+    counter-increment: Serial;
+    content: counter(Serial);
+}
+
+.staffList-table-header, .staffList-column
+{
+    padding: 1rem;
+    text-align: left;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.staffList-table-header
+{
+    background-color: #16a085;
+    color: #fff;
+}
+
+.staffList-column
+{
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.staffList-column:last-child
+{
+    border-right: none;
+
+}
+
+.staffList-column-row:hover
+{
+    background-color: #f5f5f5;
+    transform: scale(1.02);
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
+}
+
+.staffList-email
+{
+    color: rgb(0, 28, 185);
+
+}
+
+/* end of table */
+
 @media (max-width: 490px)
 {
     .staff-list-header{
@@ -178,5 +273,19 @@ body
       .logout-btn a{
     
         font-size: 0.8rem;
+      }
+
+      .staffList-count
+      {
+        font-size: 0.9rem;
+
+      }
+
+      .staffList-table-container
+      {
+          /* outline: 2px solid red; */
+          max-width: 90%;
+          overflow-x: auto;
+
       }
 }
