@@ -7,7 +7,7 @@ from account.models import CustomUser
 
 class CustomerPaymentDetail(models.Model):
 
-    user = models.OneToOneField(CustomUser, null=True, on_delete= models.CASCADE)
+    user_email = models.EmailField(max_length=255, null =True)
     customer_plan = models.CharField(max_length=7, null=True)
     fees_taken = models.IntegerField(null= True)
     transaction_id = models.CharField(max_length=255, null= True)

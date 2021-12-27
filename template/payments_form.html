@@ -18,8 +18,69 @@
             <a href="{% url 'logout' %}">LOGOUT</a>
         </div>
     </div>
-
+<!-- nav basr section -->
     {% include 'control_nav_bar.html' %}
+<!-- nav bar section -->
+  
+<!-- table -->
+    <div class="payment-main-container">
+        <div class="payment-table-container">
+            <table class="payment-table">
+                <tr>
+                    <th class="payment-table-header">Sl. No.</th>
+                    <th class="payment-table-header">User</th>
+                    <th class="payment-table-header">Plan</th>
+                    <th class="payment-table-header">Fees</th>
+                    <th class="payment-table-header">Transaction ID</th>
+                    <th class="payment-table-header">Date of Payment</th>
+                    <th class="payment-table-header">Paid</th>
+                </tr>
+
+                {% for user in payments %}
+                    <tr class="payment-column-row">
+                        <td class="payment-column"></td>
+                        <td class="payment-column payment-email"> {{user.user_email}} </td>
+                        <td class="payment-column"> {{user.customer_plan}} </td>
+                        <td class="payment-column"><i class="fas fa-rupee-sign"></i> {{user.fees_taken}} </td>
+                        <td class="payment-column"> {{user.transaction_id}} </td>
+                        <td class="payment-column"> {{user.date_of_payment}} </td>
+                        <td class="payment-column"> {% if user.paid %} <span class="status-active">Paid</span> {% else %} <span class="status-notactive">Not Paid</span> {% endif %} </td>
+                    </tr>
+                {% endfor %}
+            
+            </table>
+        </div>
+<!-- form -->
+        <div class="payment-form-container">
+
+            {% if messages %}
+                <div class="payment-message-container">
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+                </div>
+            {% endif %}
+
+            <form id="payment-form" action="payments-form" method="post">
+                {% csrf_token %}
+
+                <p class="payment-form-title">Payments Details</p>
+
+                <div class="payment-form-group">
+                    <input class="payment-form-control" type="email"  id="user_email" name="user_email" maxlength="255"  placeholder="user email" required />
+                    <label class="payment-form-label" for="user_email">User Email</label>
+                </div>
+
+                <div class="payment-form-group">
+                    <input class="payment-form-control" type="text"  id="trasaction_id" name="trasaction_id" maxlength="255"  placeholder="trasaction_id" required />
+                    <label class="payment-form-label" for="trasaction_id">Transaction ID</label>
+                </div>
+
+                <button class="upload-button" type="submit">UPLOAD DETAILS</button>
+
+            </form>
+        </div>
+    </div>
 
 
 </div>

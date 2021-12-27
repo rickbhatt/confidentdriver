@@ -4,9 +4,9 @@ from django.http import JsonResponse
 
 from datetime import datetime, date
 
-import control
+from django.contrib import messages
 
-from . models import VisitorCount
+from . models import CustomerPaymentDetail, VisitorCount
 
 from home.models import *
 
@@ -93,7 +93,7 @@ def analytics(request):
 @login_required(login_url='login')
 def user_list(request):
 
-    userList = CustomUser.objects.all().exclude(is_staff = True)
+    userList = CustomUser.objects.all().exclude(is_staff = True).order_by('date_joined')
 
     userListCount = CustomUser.objects.all().exclude(is_staff = True).count()
     
@@ -109,7 +109,7 @@ def user_list(request):
 @login_required(login_url='login')
 def contract_list(request):
 
-    contractList = Contract.objects.all()
+    contractList = Contract.objects.all().order_by('date_of_acceptance')
 
     context = {'contractList': contractList}
     
@@ -122,7 +122,7 @@ def contract_list(request):
 @login_required(login_url='login')
 def staff_list(request):
 
-    staffList = CustomUser.objects.filter(is_staff = True)
+    staffList = CustomUser.objects.filter(is_staff = True).order_by('date_joined')
 
     staffListCount = CustomUser.objects.filter(is_staff = True).count()
 
@@ -138,7 +138,43 @@ def staff_list(request):
 @login_required(login_url='login')
 def payments_form(request):
 
-    return render(request, "payments_form.html")
+    if request.method == 'POST':
+
+        user_email = request.POST.get('user_email')
+        transaction_id = request.POST.get('trasaction_id')
+        
+        if CustomUser.objects.filter(email = user_email).exists():
+
+            user = CustomUser.objects.get(email = user_email)
+            user_email = user
+            customer_plan = user.plan
+            if user.plan == "7days":
+                fees_taken = 2000
+            elif user.plan == "14days":
+                fees_taken = 3500
+            else:
+                fees_taken = 5000
+            
+            date_of_payment = user.contract.date_of_expiration
+            paid = True
+
+            cust_payment = CustomerPaymentDetail(user_email = user_email, customer_plan=customer_plan, fees_taken=fees_taken, transaction_id=transaction_id, date_of_payment=date_of_payment, paid=paid)
+
+            cust_payment.save()
+
+            messages.info(request, 'Details Uploaded')
+            return redirect('payments-form') 
+
+        else:
+            messages.info(request, 'The user email entered does not exist')
+            return render( request, 'payments_form.html') 
+    
+    else:
+        payments = CustomerPaymentDetail.objects.all().order_by('date_of_payment')
+
+        context = {'payments': payments}
+
+        return render(request, "payments_form.html", context)
 
 
 

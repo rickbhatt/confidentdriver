@@ -108,6 +108,10 @@ def registerpage(request):
                 messages.info(request, 'User with same email already exists')
                 return redirect('register')
             
+            elif int(age) < 18:
+                messages.info(request, 'You have to be above 18 to register')
+                return redirect('register') 
+            
             elif plan is None:
                 messages.info(request, 'Please select a plan')
                 return redirect('register') 

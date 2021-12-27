@@ -5,6 +5,8 @@
     --clr-primary-400: 263 55% 52%;
     --clr-secondary-400: 217 19% 35%;
     --clr-secondary-500: 219 29% 14%;
+    --clr-secondary-600: 250 60% 24%;
+    --clr-secondary-700: 250 80% 34%;
     --clr-neutral-100: 0 0% 100%;
     --clr-neutral-150: 0 0%  94%;
     --clr-neutral-200: 210 46% 95%;
@@ -260,6 +262,14 @@ h3 {
 }
 .bg-secondary-500 {
   background: hsl(var(--clr-secondary-500));
+}
+
+.bg-secondary-600 {
+  background: hsl(var(--clr-secondary-600));
+}
+
+.bg-secondary-700 {
+  background: hsl(var(--clr-secondary-700));
 }
 
 .bg-neutral-100 {
