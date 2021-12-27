@@ -208,6 +208,7 @@ body
 {
     background-color: #16a085;
     color: #fff;
+    height: max(2rem, 5rem);
 }
 
 .payment-column

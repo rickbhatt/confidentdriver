@@ -25,30 +25,33 @@
 <!-- table -->
     <div class="payment-main-container">
         <div class="payment-table-container">
-            <table class="payment-table">
-                <tr>
-                    <th class="payment-table-header">Sl. No.</th>
-                    <th class="payment-table-header">User</th>
-                    <th class="payment-table-header">Plan</th>
-                    <th class="payment-table-header">Fees</th>
-                    <th class="payment-table-header">Transaction ID</th>
-                    <th class="payment-table-header">Date of Payment</th>
-                    <th class="payment-table-header">Paid</th>
-                </tr>
-
-                {% for user in payments %}
-                    <tr class="payment-column-row">
-                        <td class="payment-column"></td>
-                        <td class="payment-column payment-email"> {{user.user_email}} </td>
-                        <td class="payment-column"> {{user.customer_plan}} </td>
-                        <td class="payment-column"><i class="fas fa-rupee-sign"></i> {{user.fees_taken}} </td>
-                        <td class="payment-column"> {{user.transaction_id}} </td>
-                        <td class="payment-column"> {{user.date_of_payment}} </td>
-                        <td class="payment-column"> {% if user.paid %} <span class="status-active">Paid</span> {% else %} <span class="status-notactive">Not Paid</span> {% endif %} </td>
+            {% if payments %}
+                <table class="payment-table">
+                    <tr>
+                        <th class="payment-table-header">Sl. No.</th>
+                        <th class="payment-table-header">User</th>
+                        <th class="payment-table-header">Plan</th>
+                        <th class="payment-table-header">Fees</th>
+                        <th class="payment-table-header">Transaction ID</th>
+                        <th class="payment-table-header">Date of Payment</th>
+                        <th class="payment-table-header">Paid</th>
                     </tr>
-                {% endfor %}
-            
-            </table>
+
+                    {% for user in payments %}
+                        <tr class="payment-column-row">
+                            <td class="payment-column"></td>
+                            <td class="payment-column payment-email"> {{user.user_email}} </td>
+                            <td class="payment-column"> {{user.customer_plan}} </td>
+                            <td class="payment-column"><i class="fas fa-rupee-sign"></i> {{user.fees_taken}} </td>
+                            <td class="payment-column"> {{user.transaction_id}} </td>
+                            <td class="payment-column"> {{user.date_of_payment}} </td>
+                            <td class="payment-column"> {% if user.paid %} <span class="status-active">Paid</span> {% else %} <span class="status-notactive">Not Paid</span> {% endif %} </td>
+                        </tr>
+                    {% endfor %}
+                
+                </table>
+            {% endif %}
+
         </div>
 <!-- form -->
         <div class="payment-form-container">
