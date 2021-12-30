@@ -71,3 +71,51 @@ function showTab(n) {
     //... and adds the "active" class on the current step:
     x[n].className += " active";
   }
+
+const ourcar = document.getElementById("ourcar");
+
+const yourcar = document.getElementById("yourcar")
+
+const seven = document.getElementById("checked_seven");
+
+const fourteen = document.getElementById("checked_fourteen");
+
+const thirty = document.getElementById("checked_thirty");
+
+ourcar.addEventListener("click", () =>{
+        
+    if(ourcar.checked){
+
+        seven.textContent = "1799";
+
+        fourteen.textContent = "3599";
+
+        thirty.textContent = "4999";
+    }else{
+      
+      seven.textContent = "";
+
+      fourteen.textContent = "";
+
+      thirty.textContent = "";
+    }
+});
+
+yourcar.addEventListener("click", () =>{
+     
+  if(yourcar.checked){
+
+      seven.textContent = "999";
+
+      fourteen.textContent = "1899";
+
+      thirty.textContent = "2699";
+  }else{
+    
+    seven.textContent = "";
+
+    fourteen.textContent = "";
+
+    thirty.textContent = "";
+  }
+});

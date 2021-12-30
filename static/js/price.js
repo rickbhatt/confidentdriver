@@ -1,15 +1,15 @@
 const checkbox = document.getElementById("checkbox");
-const twentyone = document.getElementById("twentyone");
+const thirty = document.getElementById("thirty");
 const fourteen = document.getElementById("fourteen");
 const seven = document.getElementById("seven"); 
 
 
 checkbox.addEventListener("click", () =>{
 
-    seven.textContent =seven.textContent === "2000" ? "Not Available" : "2000";
+    seven.textContent =seven.textContent === "999" ? "1799" : "999";
     
-    twentyone.textContent =twentyone.textContent === "5000" ? "Not Available" : "5000";
+    thirty.textContent =thirty.textContent === "2699" ? "4999" : "2699";
 
-    fourteen.textContent =fourteen.textContent === "3500" ? "Not Available" : "3500";
+    fourteen.textContent =fourteen.textContent === "1899" ? "3599" : "1899";
 
 });

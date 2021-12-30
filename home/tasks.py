@@ -7,11 +7,18 @@ from django.template.loader import render_to_string
 
 from django.utils import timezone
 
+from django.utils.dateparse import parse_datetime
+
 
 @shared_task
-def contract_send_emails(name, user_email, plan, price, accept, expire):
+def contract_send_emails(name, user_email, type_of_plan, plan, price, accept, expire):
      # for the customers
-                template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'plan': plan,'price': price, 'accept': accept, 'expire': expire})
+                
+                accept = parse_datetime(accept)
+
+                expire = parse_datetime(expire)
+                
+                template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'type_of_plan':type_of_plan, 'plan': plan,'price': price, 'accept': accept, 'expire': expire})
                 email = EmailMessage(
                     'Copy of Contract',                                   #subject
                     template,                                                      # body
@@ -24,7 +31,7 @@ def contract_send_emails(name, user_email, plan, price, accept, expire):
                 
                 #for the owners
 
-                template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'plan': plan,'price': price, 'accept': accept, 'expire':expire})
+                template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'type_of_plan':type_of_plan, 'plan': plan,'price': price, 'accept': accept, 'expire':expire})
                 
                 subject = f"Copy of contract for {user_email}"
                 
@@ -41,9 +48,14 @@ def contract_send_emails(name, user_email, plan, price, accept, expire):
                 return "sent"
 
 @shared_task
-def updated_contract_send_emails(name, user_email, plan, price, accept, expire):
+def updated_contract_send_emails(name, user_email, type_of_plan, plan, price, accept, expire):
     # for the customers
-                template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'plan': plan,'price': price, 'accept': accept, 'expire':expire})
+                
+                accept = parse_datetime(accept)
+
+                expire = parse_datetime(expire)
+                
+                template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'type_of_plan':type_of_plan, 'plan': plan,'price': price, 'accept': accept, 'expire':expire})
                 email = EmailMessage(
                     'Copy Updated of Contract',                                   #subject
                     template,                                                      # body
@@ -56,7 +68,7 @@ def updated_contract_send_emails(name, user_email, plan, price, accept, expire):
                 
                 #for the owners
 
-                template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'plan': plan,'price': price, 'accept': accept, 'expire':expire})
+                template = render_to_string('contract_email.html', {'name': name, 'email':user_email, 'type_of_plan':type_of_plan, 'plan': plan,'price': price, 'accept': accept, 'expire':expire})
                 
                 subject = f"Copy of updated contract for {user_email}"
 
@@ -76,6 +88,8 @@ def updated_contract_send_emails(name, user_email, plan, price, accept, expire):
 @shared_task
 def customer_query_email(name, cust_email, phone_no, question, asked_on):
 
+    asked_on = parse_datetime(asked_on)
+    
     template = render_to_string('customer_query.html', {'name': name, 'email':cust_email, 'phone_no': phone_no,'question': question, 'asked_on': asked_on})
     
     subject = f"Recieved customer query from {cust_email}"

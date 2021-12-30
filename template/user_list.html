@@ -40,6 +40,7 @@
                     <th  class="userList-table-header">Phone No</th>
                     <th  class="userList-table-header">Active Status</th>
                     <th  class="userList-table-header">Address</th>
+                    <th  class="userList-table-header">Type of Plan</th>
                     <th  class="userList-table-header">Plan</th>
                     <th  class="userList-table-header">Age</th>
                     <th  class="userList-table-header">Date Joined</th>
@@ -55,6 +56,7 @@
                         <td  class="userList-table-column"> {{user.phone_no}} </td>
                         <td  class="userList-table-column"> {% if user.is_active %} <span class="status-active">Active</span>  {% else %} <span class="status-notactive">Not Active</span>  {% endif %}</td>
                         <td  class="userList-table-column"> {{user.address}} </td>
+                        <td  class="userList-table-column"> {{user.type_of_plan}} </td>
                         <td  class="userList-table-column"> {{user.plan}} </td>
                         <td  class="userList-table-column"> {{user.age}} </td>
                         <td  class="userList-table-column"> {{user.date_joined}} </td>

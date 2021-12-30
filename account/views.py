@@ -57,10 +57,11 @@ def registerpage(request):
                 name = user.full_name
                 phone = user.phone_no
                 address = user.address
+                type_of_plan = user.type_of_plan
                 plan = user.plan
                 user_email= user.email
 
-                regd_send_email.delay(name, phone, address, plan, user_email)
+                regd_send_email.delay(name, phone, address, type_of_plan, plan, user_email)
 
                 # # to the customer
                 # template = render_to_string('regd_success_email.html', {'name': user.full_name})
@@ -98,6 +99,7 @@ def registerpage(request):
         age = request.POST.get('age')
         phone_no = request.POST.get('phone')
         address = request.POST.get('address')
+        type_of_plan = request.POST.get('type_of_plan')
         plan = request.POST.get('plan')
         email = request.POST.get('email')
         password1= request.POST.get('password')
@@ -112,11 +114,15 @@ def registerpage(request):
                 messages.info(request, 'You have to be above 18 to register')
                 return redirect('register') 
             
+            elif type_of_plan is None:
+                messages.info(request, 'Please select type of plan')
+                return redirect('register') 
+            
             elif plan is None:
                 messages.info(request, 'Please select a plan')
                 return redirect('register') 
             else:
-                user=CustomUser.objects.create_user(full_name=full_name.upper(),age=age, phone_no=phone_no, address=address, plan=plan, email=email.lower(), password=password1)
+                user=CustomUser.objects.create_user(full_name=full_name.upper(),age=age, phone_no=phone_no, address=address,  type_of_plan= type_of_plan,plan=plan, email=email.lower(), password=password1)
                 user.is_active = False
                 user.save()
                 
@@ -169,10 +175,11 @@ def loginpage(request):
                 name = user.full_name
                 phone = user.phone_no
                 address = user.address
+                type_of_plan = user.type_of_plan
                 plan = user.plan
                 user_email= user.email
 
-                regd_send_email.delay(name, phone, address, plan, user_email)
+                regd_send_email.delay(name, phone, address, type_of_plan, plan, user_email)
                 
                 # #to the customers
                 # template = render_to_string('regd_success_email.html', {'name': user.full_name})

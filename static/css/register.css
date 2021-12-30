@@ -360,7 +360,10 @@
 
 #seven:checked ~ .seven .dot::before,
 #fourteen:checked ~ .fourteen .dot::before,
-#twentyone:checked ~ .twentyone .dot::before
+#twentyone:checked ~ .twentyone .dot::before,
+#ourcar:checked ~ .ourcar .dot::before,
+#yourcar:checked ~ .yourcar .dot::before
+
 
 {
     background: #333;
@@ -371,7 +374,10 @@
 
 #seven:checked ~ .seven,
 #fourteen:checked ~ .fourteen,
-#twentyone:checked ~ .twentyone
+#twentyone:checked ~ .twentyone,
+#ourcar:checked ~ .ourcar,
+#yourcar:checked ~ .yourcar
+
 
 {
     background: #333;
@@ -387,7 +393,11 @@
 #twentyone:checked ~ .twentyone .opt-text,
 #seven:checked ~ .seven .opt-price ,
 #fourteen:checked ~ .fourteen .opt-price ,
-#twentyone:checked ~ .twentyone .opt-price  
+#twentyone:checked ~ .twentyone .opt-price,
+#ourcar:checked ~ .ourcar .opt-text ,
+#yourcar:checked ~ .yourcar .opt-text,
+#ourcar:checked ~ .ourcar .opt-price ,
+#yourcar:checked ~ .yourcar .opt-price  
 
 {
    color: #fff;

@@ -56,14 +56,14 @@
                             <label for="fourteen" class="fourteen">
                                 <div class="dot"></div>
                                 <div class="opt-text">14 Days</div>
-                                <div class="opt-price"> <i class="fas fa-rupee-sign"></i>&nbsp3500</div>
+                                <div class="opt-price"> <i class="fas fa-rupee-sign"></i> {% if request.user.type_of_plan == 'Your Car' %}&nbsp1899 {% else %}&nbsp3599 {% endif %}</div>
     
                             </label>
     
                             <label for="twentyone" class="twentyone">
                                 <div class="dot"></div>
                                 <div class="opt-text">30 Days</div>
-                                <div class="opt-price"> <i class="fas fa-rupee-sign"></i>&nbsp5000</div>
+                                <div class="opt-price"> <i class="fas fa-rupee-sign"></i> {% if request.user.type_of_plan == 'Your Car' %} &nbsp2699 {% else %}&nbsp4999 {% endif %}</div>
     
                             </label>
                         </div>
@@ -104,7 +104,7 @@
                             <label for="twentyone" class="twentyone">
                                 <div class="dot"></div>
                                 <div class="opt-text">30 Days</div>
-                                <div class="opt-price"> <i class="fas fa-rupee-sign"></i>&nbsp5000</div>
+                                <div class="opt-price"> <i class="fas fa-rupee-sign"></i> {% if request.user.type_of_plan == 'Your Car' %} &nbsp2699 {% else %}&nbsp4999 {% endif %}</div>
     
                             </label>
                         </div>

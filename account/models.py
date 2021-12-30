@@ -12,6 +12,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=255)
     phone_no = models.CharField(max_length=10, blank= True)
     address = models.CharField(max_length=500, blank= True)
+    type_of_plan = models.CharField(max_length=255, blank= True)
     plan = models.CharField(max_length=255, blank= True)
     age = models.CharField(max_length=2, blank= True)
 

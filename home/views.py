@@ -125,13 +125,17 @@ def contract(request):
 
                 name = request.user.full_name
                 plan = request.user.plan
-                price = 2000
+                if request.user.type_of_plan == 'Your Car':
+                    price = 999
+                else:
+                    price = 1799
+                type_of_plan = request.user.type_of_plan
                 user_email = request.user.email
                 accept = request.user.contract.date_of_acceptance
                 expire = request.user.contract.date_of_expiration
                 
 
-                contract_send_emails.delay(name, user_email, plan, price, accept, expire)  # in task.py
+                contract_send_emails.delay(name, user_email, type_of_plan, plan, price, accept, expire)  # in task.py
 
                 # send_emails.delay()
                 # # for the customers
@@ -173,12 +177,16 @@ def contract(request):
 
                name = request.user.full_name
                plan = request.user.plan
-               price = 3500
+               if request.user.type_of_plan == 'Your Car':
+                    price = 1899
+               else:
+                   price = 3599
+               type_of_plan = request.user.type_of_plan
                user_email = request.user.email
                accept = request.user.contract.date_of_acceptance
                expire = request.user.contract.date_of_expiration
                 
-               contract_send_emails.delay(name, user_email, plan, price, accept, expire) #in task.py
+               contract_send_emails.delay(name, user_email, type_of_plan, plan, price, accept, expire) #in task.py
                
             #    # for the customers 
             #    template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 3500, 'accept': agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
@@ -219,12 +227,16 @@ def contract(request):
 
                 name = request.user.full_name
                 plan = request.user.plan
-                price = 5000
+                if request.user.type_of_plan == 'Your Car':
+                    price = 2699
+                else:
+                    price = 4999
+                type_of_plan = request.user.type_of_plan
                 user_email = request.user.email
                 accept = request.user.contract.date_of_acceptance
                 expire = request.user.contract.date_of_expiration
 
-                contract_send_emails.delay(name, user_email, plan, price, accept, expire)  # in task.py
+                contract_send_emails.delay(name, user_email, type_of_plan, plan, price, accept, expire)  # in task.py
                 
                 # # for the customers
                 # template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': request.user.plan,'price': 5000,'accept':agreement.date_of_acceptance, 'expire':agreement.date_of_expiration})
@@ -302,14 +314,18 @@ def upgrade(request):
 
             name = request.user.full_name
             plan = current_user.plan
-            price = 3500
+            if current_user.type_of_plan == 'Your Car':
+                price = 1899
+            else:
+                price = 3599
             user_email = request.user.email
+            type_of_plan = request.user.type_of_plan
             accept = current_date.date_of_acceptance
             expire = current_date.date_of_expiration
         
-            updated_contract_send_emails.delay(name, user_email, plan, price, accept, expire)  # in task.py
+            updated_contract_send_emails.delay(name, user_email, type_of_plan, plan, price, accept, expire)  # in task.py
 
-            return render('user')
+            return redirect('user')
                 
             # template = render_to_string('contract_email.html', {'name': request.user.full_name, 'email': request.user.email, 'plan': current_user.plan,'price': 3500, 'accept': current_date.date_of_acceptance, 'expire':current_date.date_of_expiration})
             # email = EmailMessage(
@@ -337,12 +353,16 @@ def upgrade(request):
 
             name = request.user.full_name
             plan = current_user.plan
-            price = 5000
+            if current_user.type_of_plan == 'Your Car':
+                price = 2699
+            else:
+                price = 4999
             user_email = request.user.email
+            type_of_plan = request.user.type_of_plan
             accept = current_date.date_of_acceptance
             expire = current_date.date_of_expiration
         
-            updated_contract_send_emails.delay(name, user_email, plan, price, accept, expire)  # in task.py
+            updated_contract_send_emails.delay(name, user_email, type_of_plan, plan, price, accept, expire)  # in task.py
 
             
             

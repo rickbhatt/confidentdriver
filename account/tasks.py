@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 
 
 @shared_task
-def regd_send_email(name, phone, address, plan, user_email):
+def regd_send_email(name, phone, address, type_of_plan,plan, user_email):
 
     # to the customer
             template = render_to_string('regd_success_email.html', {'name': name})
@@ -23,7 +23,7 @@ def regd_send_email(name, phone, address, plan, user_email):
 
             
             # to the owners
-            template = render_to_string('hire.html', {'name': name, 'phone': phone, 'address': address, 'plan': plan, 'email': user_email})
+            template = render_to_string('hire.html', {'name': name, 'phone': phone, 'address': address,'type_of_plan': type_of_plan,'plan': plan, 'email': user_email})
             
             subject = f"New registration for {user_email} contact customer"
             
