@@ -93,7 +93,7 @@ def analytics(request):
 @login_required(login_url='login')
 def user_list(request):
 
-    userList = CustomUser.objects.all().exclude(is_staff = True).order_by('date_joined')
+    userList = CustomUser.objects.all().exclude(is_staff = True).order_by('-date_joined')
 
     userListCount = CustomUser.objects.all().exclude(is_staff = True).count()
     
@@ -109,7 +109,7 @@ def user_list(request):
 @login_required(login_url='login')
 def contract_list(request):
 
-    contractList = Contract.objects.all().order_by('date_of_acceptance')
+    contractList = Contract.objects.all().order_by('-date_of_acceptance')
 
     context = {'contractList': contractList}
     
@@ -122,7 +122,7 @@ def contract_list(request):
 @login_required(login_url='login')
 def staff_list(request):
 
-    staffList = CustomUser.objects.filter(is_staff = True).order_by('date_joined')
+    staffList = CustomUser.objects.filter(is_staff = True).order_by('-date_joined')
 
     staffListCount = CustomUser.objects.filter(is_staff = True).count()
 
@@ -170,7 +170,7 @@ def payments_form(request):
             return render( request, 'payments_form.html') 
     
     else:
-        payments = CustomerPaymentDetail.objects.all().order_by('date_of_payment')
+        payments = CustomerPaymentDetail.objects.all().order_by('-date_of_payment')
 
         context = {'payments': payments}
 
@@ -218,15 +218,12 @@ def visitor_data(request):  # for visirtors
         visitorMonthNumber.append(monthly_visitor[i]['formatted_date'])
         visitorNumberMonthly.append(monthly_visitor[i]['total_in_month']) 
     
-    print("\nthis is the list of month number =", visitorMonthNumber, "\n", "\nthis is the number of visitors", visitorNumberMonthly, "\n")
-    
 
     for j in range(len(yearly_visitor)):
         
         vistorYearNumber.append(yearly_visitor[j]['date_of_record__year'])
         visitorNumberYearly.append(yearly_visitor[j]['total_in_year']) 
    
-    print("In the year :",yearly_visitor[j]['date_of_record__year'],"-", " the number of visitors are :", yearly_visitor[j]['total_in_year'] ,"\n")
 
     visitor_stats = {
             "visitorMonthNumber": visitorMonthNumber,
