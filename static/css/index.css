@@ -433,21 +433,21 @@
 @keyframes cards
 {
     0%{
-        background-image: url('../images/7days.svg');
+        background-image: url('../images/ratecards_7days.svg');
         opacity: 1;
         
        
     }
 
     25%{
-        background-image: url('../images/14days.svg');
+        background-image: url('../images/ratecards_14days.svg');
         opacity: 1;
     }
 
 
 
     50%{
-        background-image: url('../images/30days.svg');
+        background-image: url('../images/ratecards_30days.svg');
         opacity: 1;
     }
 
@@ -459,7 +459,7 @@
 
     100%{
 
-        background-image: url('../images/7days.svg');
+        background-image: url('../images/ratecards_7days.svg');
         opacity: 1;
     }
 
