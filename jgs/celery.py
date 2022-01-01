@@ -27,8 +27,8 @@ app.conf.enable_utc = False
 
 app.conf.update(timezone = 'Asia/Kolkata')
 
-# app.conf.update(BROKER_URL=os.environ['REDIS_URL'],
-#                 CELERY_RESULT_BACKEND=os.environ['REDIS_URL'])
+app.conf.update(BROKER_URL=os.environ['REDIS_URL'],
+                CELERY_RESULT_BACKEND=os.environ['REDIS_URL'])
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
