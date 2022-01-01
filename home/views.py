@@ -36,7 +36,7 @@ from django.template.loader import render_to_string
 def get_ip(request):
 
     try:
-        ip_forward = request.META.get('HTTP_TRUE_CLIENT_IP')
+        ip_forward = request.META.get('HTTP_X_FORWARDED_FOR')
         if ip_forward:
             ip = ip_forward.split(",")[-1].split()
             print("returning forwarded for ip address", ip)
