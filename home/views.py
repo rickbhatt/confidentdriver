@@ -38,7 +38,7 @@ def get_ip(request):
     try:
         ip_forward = request.META.get('HTTP_X_FORWARDED_FOR')
         if ip_forward:
-            ip = ip_forward.split(",")[-1].split()
+            ip = ip_forward.split(",")[0]
             print("returning forwarded for ip address", ip)
 
         elif request.META.get('HTTP_X_REAL_IP'):
