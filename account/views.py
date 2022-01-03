@@ -1,3 +1,4 @@
+from datetime import date, datetime
 from django import template
 from django.shortcuts import render, redirect 
 from django.http.response import HttpResponse
@@ -8,6 +9,8 @@ from control.views import dashboard
 
 from django.views.decorators.cache import cache_control
 
+import uuid
+
 #################### celery queing ############################
 
 from .tasks import *
@@ -16,7 +19,7 @@ from .tasks import *
 
 ##################### CUSTOM USER MODEL ###########################
 
-from .models import CustomUser
+from .models import CustomUser, ForgetPassword
 
 #################### END OF CUSTOM USER MODEL ######################
 
@@ -300,3 +303,97 @@ def resend_otp(request):
     return HttpResponse("Can't Send OTP")
 
 ################## END OF RESEND OTP ############
+
+#################### PASSWORD RESET CHANGE ######################
+
+def change_password(request, token):
+
+    try:
+        fp_obj = ForgetPassword.objects.filter(forget_password_token = token).first()
+
+        print("\nthis is user obj ", fp_obj.user, "\n")
+
+        if request.method == 'POST':
+            new_password = request.POST.get('password')
+            con_password = request.POST.get('con_password')
+            user_id = request.POST.get('user')
+
+            if user_id is None:
+                messages.info(request, 'User does not exist.')
+                return redirect(request.path_info)
+            else:
+                if new_password != con_password:
+                    messages.info(request, 'Password and Confirm Password not matching')
+                    return redirect(request.path_info)
+                else:
+                    user_obj = CustomUser.objects.get(email = user_id)
+                    user_obj.set_password(new_password)
+                    user_obj.save()
+
+                    messages.info(request, 'Password changed successfuly')
+
+                    return redirect('login')
+
+
+        context = {'user': fp_obj.user}
+
+    except Exception as e:
+
+        path = "account/views/change_password()"
+
+        date_of_record = datetime.now()
+
+        error = str(e)
+        
+        send_to_developer.delay(path, date_of_record, error)
+        print("\nthe exception is comming from forget_password : ", e, "\n")
+        messages.info(request, 'We are facing some problem. We shall rectify it soon. Sorry for inconvenience caused.')
+
+        print("this is the exception from chamge_password : ", e)
+        return redirect(request.path_info)
+
+    return render(request, 'change_password.html', context)
+
+def forget_password(request):
+
+    try:
+
+        if request.method == 'POST':
+            user_email = request.POST.get('email')
+
+            if CustomUser.objects.filter(email = user_email).exists():
+                
+                user_obj = CustomUser.objects.get(email = user_email)
+
+                name = user_obj.full_name
+                plan = user_obj.plan
+
+                print("\n this is the user : ", user_obj, " this is its name : ", name,"\n")
+
+                token = str(uuid.uuid4())
+                
+                fp = ForgetPassword.objects.get_or_create(user = user_obj, forget_password_token = token)
+
+                forget_password_mail.delay(user_email, name, token)
+                messages.info(request, f'An email has been sent to {user_obj}.')
+                return redirect('forget-password')  
+            else:
+                messages.info(request, 'User does not exist')
+                return redirect('forget-password')   
+
+    except Exception as e:
+
+        path = "account/views/forget_password()"
+
+        date_of_record = datetime.now()
+
+        error = str(e)
+        
+        send_to_developer.delay(path, date_of_record, error)
+        print("\nthe exception is comming from forget_password : ", e, "\n")
+        messages.info(request, 'We are facing some problem. We shall rectify it soon. Sorry for inconvenience caused.')
+        return redirect('forget-password')  
+    
+    return render(request, 'fp_email_form.html')
+
+#################### END PASSWORD RESET CHANGE ######################

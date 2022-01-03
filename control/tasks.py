@@ -61,7 +61,7 @@ def visitor_count(ip):
         pass
         print("the ip", visitor.ip,"recorded on", visitor.date_of_record ,"already exists and wil not be saved")
     else:
-        # print('this is the ip address of the user that has been saved', visitor.ip)
+        print('this is the ip address of the user that has been saved', visitor.ip)
 
         visitor.save()
     return "saved"

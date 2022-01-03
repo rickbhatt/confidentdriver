@@ -4,6 +4,10 @@ from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
 
+import uuid
+
+from django.utils.dateparse import parse_datetime
+
 
 
 @shared_task
@@ -51,3 +55,37 @@ def otp_send_mail(name, usr_otp, user_email):
             [user_email],           #reciever
             fail_silently= False
         )
+@shared_task
+def forget_password_mail(user_email, name, token):
+    
+    subject = "Forget Password Link"
+
+    message = f"Hello, {name} \n Click the link to reset your password \n http://127.0.0.1:8000/account/change-password/{token}"
+
+    email_from = settings.EMAIL_HOST_USER
+
+    reciepent_list = [user_email]
+
+    send_mail(subject, message, email_from, reciepent_list, fail_silently= False)
+
+    return True
+
+@shared_task
+def send_to_developer(path, date_of_record, error):
+    
+    date_of_record = parse_datetime(date_of_record)
+    
+    message = f"this exception/ error is generated from confident driver and the source of error is : {path}, and the error/ exception is : {error}"
+    
+    subject = f"this error is from confident driver, {date_of_record}"
+
+    email = EmailMessage(
+        subject,                                   #subject
+        message,                                                      # body
+        settings.EMAIL_HOST_USER,
+        ['error.reports.ritankar@gmail.com'],                                       # sender email
+    )
+    email.fail_silently = False
+    email.send()
+
+    return "sent"
