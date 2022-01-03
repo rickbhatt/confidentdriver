@@ -39,7 +39,12 @@ app.conf.beat_schedule = {
     'send-expiry-email-everyday': {
         'task': 'control.tasks.send_expiry_mail',
         'schedule': crontab(hour=7, minute=0)
-    } 
+    },
+
+    'delete-forget-password-tokens': {
+        'task': 'control.tasks.auto_del_forget_password',
+        'schedule': crontab(0,0, day_of_month='1')
+    }, 
 }
 
 # Load task modules from all registered Django apps.

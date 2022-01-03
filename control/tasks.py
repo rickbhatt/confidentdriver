@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 
 from . models import VisitorCount
 
-from account.models import CustomUser
+from account.models import CustomUser, ForgetPassword
 
 from home.models import Contract
 
@@ -66,7 +66,16 @@ def visitor_count(ip):
         visitor.save()
     return "saved"
 
+@shared_task(bind = True)
+def auto_del_forget_password(self):
+
+    fp = ForgetPassword.objects.all()
+
+    for fp_obj in fp:
+
+        fp_obj.delete()
     
+    return "Done Deletion"
 
 
 
