@@ -60,7 +60,7 @@ def forget_password_mail(user_email, name, token):
     
     subject = "Forget Password Link"
 
-    message = f"Hello, {name} \n Click the link to reset your password \n http://127.0.0.1:8000/account/change-password/{token}"
+    message = f"Hello, {name} \n Click the link to reset your password \n https://confidentdriver.herokuapp.com/account/change-password/{token}"
 
     email_from = settings.EMAIL_HOST_USER
 
