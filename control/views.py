@@ -149,11 +149,20 @@ def payments_form(request):
             user_email = user
             customer_plan = user.plan
             if user.plan == "7days":
-                fees_taken = 2000
+                if user.type_of_plan == 'Your Car':
+                    fees_taken = 999
+                else:
+                    fees_taken = 1799
             elif user.plan == "14days":
-                fees_taken = 3500
+                if user.type_of_plan == "Your Car":
+                    fees_taken = 1899
+                else:
+                    fees_taken = 3599
             else:
-                fees_taken = 5000
+                if user.type_of_plan == "Your Car":
+                    fees_taken = 2699
+                else:
+                    fees_taken = 4999
             
             date_of_payment = user.contract.date_of_expiration
             paid = True
