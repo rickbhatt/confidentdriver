@@ -49,22 +49,22 @@ def send_expiry_mail(self):
             email.send()
    
 
-@shared_task
-def visitor_count(ip):
+# @shared_task
+# def visitor_count(ip):
 
-    visitor = VisitorCount()
+#     visitor = VisitorCount()
 
-    visitor.ip = ip
-    visitor.date_of_record = datetime.now()
+#     visitor.ip = ip
+#     visitor.date_of_record = datetime.now()
 
-    if VisitorCount.objects.all().filter(ip = visitor.ip ,date_of_record__icontains= datetime.today().date()).exists():
-        pass
-        print("the ip", visitor.ip,"recorded on", visitor.date_of_record ,"already exists and wil not be saved")
-    else:
-        print('this is the ip address of the user that has been saved', visitor.ip)
+#     if VisitorCount.objects.all().filter(ip = visitor.ip ,date_of_record__icontains= datetime.today().date()).exists():
+#         pass
+#         print("the ip", visitor.ip,"recorded on", visitor.date_of_record ,"already exists and wil not be saved")
+#     else:
+#         print('this is the ip address of the user that has been saved', visitor.ip)
 
-        visitor.save()
-    return "saved"
+#         visitor.save()
+#     return "saved"
 
 @shared_task(bind = True)
 def auto_del_forget_password(self):

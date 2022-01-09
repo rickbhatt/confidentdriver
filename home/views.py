@@ -54,6 +54,22 @@ def get_ip(request):
     
     return ip
 
+def visitor_count(ip):
+
+    visitor = VisitorCount()
+
+    visitor.ip = ip
+    visitor.date_of_record = datetime.now()
+
+    if VisitorCount.objects.all().filter(ip = visitor.ip ,date_of_record__icontains= datetime.today().date()).exists():
+        pass
+        print("the ip", visitor.ip,"recorded on", visitor.date_of_record ,"already exists and wil not be saved")
+    else:
+        print('this is the ip address of the user that has been saved', visitor.ip)
+
+        visitor.save()
+    return print('the function is executed')
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @IfAuthenticatedUser
 def home(request):
@@ -77,7 +93,7 @@ def home(request):
     else:
      
         ip = get_ip(request)
-        visitor_count.delay(ip)
+        visitor_count(ip)
         
         return render(request, 'index.html')
 
