@@ -31,7 +31,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     min-height: 60px;
-    padding-block: 0.9rem;
+    padding-block: 0.2rem;
     padding-inline: 1rem;
     align-items: center;
 }
@@ -1419,6 +1419,10 @@ hr{
         background-color: unset;
         color: #000;
       }
+
+    .index-header{
+        padding-inline:0.5rem;
+    }
     
 
     .logo{
@@ -1462,21 +1466,21 @@ hr{
 
   .ham-icon
   {
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: #1D2143;
   }
 
   .mobile-nav-toggle{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     position: relative;
     background: transparent;
     border: none;
-    grid-column: 3;
+    grid-column: 2;
     grid-row: 1;
     top: 0;
-    right: 0;
+    right: 5%;
     z-index: 100;
   }
 
