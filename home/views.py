@@ -33,6 +33,12 @@ from django.template.loader import render_to_string
 
 # END FOR EMAIL #
 
+
+def page(request):
+
+    return render(request, 'testpage.html')
+
+
 def get_ip(request):
 
     try:
