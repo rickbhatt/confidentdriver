@@ -69,9 +69,9 @@ def visitor_count(ip):
 
     if VisitorCount.objects.all().filter(ip = visitor.ip ,date_of_record__icontains= datetime.today().date()).exists():
         pass
-        print("the ip", visitor.ip,"recorded on", visitor.date_of_record ,"already exists and wil not be saved")
+        print("\n the ip", visitor.ip,"recorded on", visitor.date_of_record ,"already exists and wil not be saved \n")
     else:
-        print('this is the ip address of the user that has been saved', visitor.ip)
+        print('\n this is the ip address of the user that has been saved', visitor.ip, "\n")
 
         visitor.save()
     return print('the function is executed')

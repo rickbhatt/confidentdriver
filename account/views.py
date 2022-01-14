@@ -1,11 +1,12 @@
 from datetime import date, datetime
-from django import template
 from django.shortcuts import render, redirect 
 from django.http.response import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, get_user_model
 
 from control.views import dashboard
+
+from home.views import get_ip, visitor_count
 
 from django.views.decorators.cache import cache_control
 
@@ -267,6 +268,10 @@ def loginpage(request):
             return render( request, 'login.html')            #FOR ERROR PURPOSE
 
     else:
+
+        ip = get_ip(request)
+        visitor_count(ip)
+
         return render(request, 'login.html')
 
 
