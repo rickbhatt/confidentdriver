@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <script src="https://kit.fontawesome.com/2b3aa8f23b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/testpage.css' %}">
 
     <link rel="icon" href="{% static 'images/confidentdriver_icon.svg' %}">
 </head>
@@ -16,40 +16,24 @@
        <div class="index-banner">
         
             <div class="index-header">
-                <a href="/">
-                    <img src="{% static 'images/confidentdriverheader400.svg' %}" alt="logo" class="logo">
-                </a>
-
-                <!-- FOR WIDTH LESS THAN 480PX -->
-
-                <div class="index-480px-nav-container">
-
-                    <div class="index-hamburger"><div class="index-bar"></div></div>
-                    
-                    <ul>
-                        <li><a href="#" data-after="HOME">HOME</a></li>
-                        <li><a href="{% url 'register' %}" data-after="REGISTER">REGISTER</a></li>
-                        <li><a href="{% url 'login' %}" data-after="LOGIN">LOGIN</a></li>
-                        <li><a href="#services" data-after="SERVICES">SERVICES</a></li>
-                        <li><a href="#pricing" data-after="PRICING">PRICING</a></li>
-                        <li><a href="#contact" data-after="CONTACT US">CONTACT US</a></li>
-                    </ul>
-
+             
+                <div class="index-logo">
+                    <a href="/">
+                        <img src="{% static 'images/confidentdriverheader400.svg' %}" alt="logo" class="logo">
+                    </a>
                 </div>
+                
+                <button class="mobile-nav-toggle"><span class="ham-icon"><i class="fas fa-bars"></i></span> <span class="sr-only">Menu</span> </button>
 
-                 <!--END FOR WIDTH LESS THAN 480PX -->
-
-                <!-- FOR WIDTH >1500PX --> 
-               <div class="index-nav-container">
-                  <ul>
-                      <li><a href="#services">SERVICES</a></li>
-                      <li><a href="#pricing">PRICING</a></li>
-                      <li><a href="#contact">CONTACT US</a></li>
-                      <li><a href="{% url 'register' %}">REGISTER</a></li>
-                      <li><a href="{% url 'login' %}">LOGIN</a></li>
+               <div class="index-nav-bar">
+                  <ul class="index-nav-ul" data-visible="false">
+                      <li class="index-nav-list"><a href="#services" class="index-nav-links">SERVICES</a></li>
+                      <li class="index-nav-list"><a href="#pricing" class="index-nav-links">PRICING</a></li>
+                      <li class="index-nav-list"><a href="#contact" class="index-nav-links">CONTACT</a></li>
+                      <li class="index-nav-list"><a href="{% url 'register' %}" class="index-nav-links call-to-action">REGISTER</a></li>
+                      <li class="index-nav-list"><a href="{% url 'login' %}" class="index-nav-links">LOGIN</a></li>
                   </ul>
                </div>
-                 <!-- END FOR WIDTH >1500PX --> 
            </div>
 
            <div class="index-content-main-container">
@@ -205,7 +189,7 @@
 <!-- END FOR FOOTERs -->
 <!------------------------- SCRIPTS --------------------------------------->
 
-<script type="text/javascript" src="{% static 'js/index-scroll.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/testpage.js' %}"></script>
 
 <!------------------------- END SCRIPTS --------------------------------------->
 </body>

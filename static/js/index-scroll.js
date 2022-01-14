@@ -1,3 +1,32 @@
+const mobileNav = document.querySelector('.index-nav-ul');
+const navToggle = document.querySelector('.mobile-nav-toggle');
+var linkToggle = document.getElementsByClassName('index-nav-links');
+
+navToggle.addEventListener('click', () => {
+    
+    const visibility = mobileNav.getAttribute("data-visible");
+
+    if (visibility === "false") {
+        mobileNav.setAttribute("data-visible", true);
+    }else if (visibility === "true") {
+        mobileNav.setAttribute("data-visible", false);
+    }
+});
+
+
+for (i=0; i < linkToggle.length; i++) {
+    
+    linkToggle[i].addEventListener('click', () => {
+    
+        const visibility = mobileNav.getAttribute("data-visible");
+        
+        if (visibility === "true") {
+            mobileNav.setAttribute("data-visible", false);
+        }
+    });
+}
+
+
 const faders = document.querySelectorAll('.fade-in');
 
 const appearOptions = {  
@@ -18,31 +47,3 @@ const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll
 faders.forEach(fader => {
     appearOnScroll.observe(fader);
 });
-
-const hamburger = document.querySelector('.index-480px-nav-container .index-hamburger');
-
-const mobile_menu = document.querySelector('.index-480px-nav-container ul');
-
-
-
-
-const header = document.querySelector('.index-header')
-
-hamburger.addEventListener('click',()=>{
-    hamburger.classList.toggle('active');
-    mobile_menu.classList.toggle('active');
-
-});
-
-
-
-document.addEventListener('scroll',()=>{
-
-    var scroll_position = window.scrollY;
-    if(scroll_position > 250){
-        header.style.backgroundColor = "#face00";
-    }else{
-        header.style.backgroundColor = "transparent";
-
-    }
-})
