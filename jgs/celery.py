@@ -38,7 +38,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.conf.beat_schedule = {
     'send-expiry-email-everyday': {
         'task': 'control.tasks.send_expiry_mail',
-        'schedule': crontab(hour=7, minute=0)
+        'schedule': crontab(hour=19, minute=20)
     },
 
     'delete-forget-password-tokens': {

@@ -67,31 +67,7 @@ def registerpage(request):
 
                 regd_send_email.delay(name, phone, address, type_of_plan, plan, user_email)
 
-                # # to the customer
-                # template = render_to_string('regd_success_email.html', {'name': user.full_name})
-                # email = EmailMessage(
-                #     'Registration Successfull',                                   #subject
-                #     template,                                                      # body
-                #     settings.EMAIL_HOST_USER,
-                #     [user.email],                                       # sender email
-                # )
-                # email.fail_silently = False
-                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                # email.send()
-
-                
-                # # to the owners
-                # template = render_to_string('hire.html', {'name': user.full_name, 'phone': user.phone_no, 'address': user.address, 'plan': user.plan, 'email': user.email})
-                # email = EmailMessage(
-                #     'New regsitration contact customer',                                   #subject
-                #     template,                                                      # body
-                #     settings.EMAIL_HOST_USER,
-                #     ['confidentdriver.owner@gmail.com'],                                       # sender email
-                # )
-                # email.fail_silently = False
-                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                # email.send()
-                
+              
                 messages.success(request,'Your account has been created successfully.')
                 return redirect('login')
             else:
@@ -139,15 +115,6 @@ def registerpage(request):
                 
                 otp_send_mail.delay(name, usr_otp, user_email)
 
-                # mess =  f"Hello, {user.full_name},\n Please enter the otp to validate your email and activate your account. \nYour OTP is {usr_otp} .\n Thanks!"
-                
-                # send_mail(
-                #     "Welcome to Confident Driver - Verify your Email",   #subject
-                #     mess,  #message
-                #     settings.EMAIL_HOST_USER,  # sender
-                #     [user.email],           #reciever
-                #     fail_silently= False
-                # )
 
                 return render(request, 'register.html', {'otp': True, 'user': user})
                 # return redirect('login')
@@ -184,31 +151,6 @@ def loginpage(request):
                 user_email= user.email
 
                 regd_send_email.delay(name, phone, address, type_of_plan, plan, user_email)
-                
-                # #to the customers
-                # template = render_to_string('regd_success_email.html', {'name': user.full_name})
-                # email = EmailMessage(
-                #     'Registration Successfull',                                   #subject
-                #     template,                                                      # body
-                #     settings.EMAIL_HOST_USER,
-                #     [user.email],                                       # sender email
-                # )
-                # email.fail_silently = False
-                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                # email.send()
-
-
-                #  # to the owners
-                # template = render_to_string('hire.html', {'name': user.full_name, 'phone': user.phone_no, 'address': user.address, 'plan': user.plan, 'email': user.email})
-                # email = EmailMessage(
-                #     'New regsitration contact customer',                                   #subject
-                #     template,                                                      # body
-                #     settings.EMAIL_HOST_USER,
-                #     ['confidentdriver.owner@gmail.com'],                                       # sender email
-                # )
-                # email.fail_silently = False
-                # email.content_subtype = 'html'       # WITHOUT THIS THE HTML WILL GET RENDERED AS PLAIN TEXT
-                # email.send()
                 
                 login(request, user)
                 return redirect(user_page)
@@ -251,20 +193,10 @@ def loginpage(request):
             user_email = user.email
                 
             otp_send_mail.delay(name, usr_otp, user_email)
-            
-            # mess =  f"Hello, {user.full_name},\n Please enter the otp to validate your email and activate your account. \nYour OTP is {usr_otp} .\n Thanks!"
-            
-            # send_mail(
-            #     "Welcome to Confident Driver - Verify your Email",   #subject
-            #     mess,  #message
-            #     settings.EMAIL_HOST_USER,  # sender
-            #     [user.email],           #reciever
-            #     fail_silently= False
-            # )
             return render(request, 'login.html', {'otp': True, 'user': user})
         
         else:
-            messages.info(request, 'UserID or Password is incorrect!')
+            messages.warning(request, 'UserID or Password is incorrect!')
             return render( request, 'login.html')            #FOR ERROR PURPOSE
 
     else:

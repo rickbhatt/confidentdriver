@@ -12,7 +12,7 @@ urlpatterns=[
     path('contract', views.contract, name='contract'),
     path('upgrade', views.upgrade, name='upgrade'),
     path('email', views.contract_email, name='email'),
-    # path('test-page', views.page, name='test-page'),
+    path('test-page', views.page, name='test-page'),
 
 
 ]
