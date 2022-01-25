@@ -87,14 +87,21 @@ def home(request):
         question = request.POST['question']
         asked_on = datetime.now()
         
-        customer_query_email.delay(name, email, phone_no, question, asked_on)
+        if CustomUser.objects.filter(email = email).exists():
+            
+            customer_query_email.delay(name, email, phone_no, question, asked_on)
 
-        customer_query = CustomerQuery(name=name, email=email, phone_no=phone_no, question=question, asked_on=asked_on)
-        customer_query.save()
-        
-        messages.success(request, 'Your query was sent successfuly.')
+            customer_query = CustomerQuery(name=name, email=email, phone_no=phone_no, question=question, asked_on=asked_on)
+            customer_query.save()
+            
+            messages.success(request, 'Your query was sent successfuly.')
 
-        return redirect('/')
+            return redirect('/')
+
+        else:
+            messages.success(request, 'You need to be a registered user to write to us.')
+
+            return redirect('register')
 
     else:
      
