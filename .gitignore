@@ -2,3 +2,6 @@
 __pycache__
 celerycomands.txt
 dump.txt
+.env
+commands.txt
+.gitignore
